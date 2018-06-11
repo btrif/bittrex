@@ -1,0 +1,37 @@
+update _evolution MARKETS read_file_line_by_line  took    18.0 ms
+update _evolution MARKETS read_file_line_by_line  took    25.0 ms
+update _evolution MARKETS read_file_line_by_line  took    16.0 ms
+update _evolution MARKETS read_file_line_by_line  took    15.0 ms
+update _evolution MARKETS read_file_line_by_line  took    15.0 ms
+update _evolution MARKETS read_file_line_by_line  took    24.0 ms
+update _evolution MARKETS read_file_line_by_line  took    42.0 ms
+update _evolution MARKETS read_file_line_by_line  took    22.0 ms
+update _evolution MARKETS read_file_line_by_line  took    23.0 ms
+update _evolution MARKETS read_file_line_by_line  took    25.0 ms
+update _evolution MARKETS read_file_line_by_line  took    27.0 ms
+update _evolution MARKETS read_file_line_by_line  took    21.0 ms
+update _evolution MARKETS read_file_line_by_line  took    19.0 ms
+_evolution table UPDATE took    2591.15 ms
+------------------------------------------------------------------------------------------
+update _evolution MARKETS read_file_line_by_line  took    26.0 ms
+_evolution table UPDATE took    2246.13 ms
+------------------------------------------------------------------------------------------
+update _evolution MARKETS read_file_line_by_line  took    25.0 ms
+update _evolution MARKETS read_file_line_by_line  took    20.0 ms
+_evolution table UPDATE took    2339.13 ms
+------------------------------------------------------------------------------------------
+update _evolution MARKETS read_file_line_by_line  took    15.0 ms
+_evolution table UPDATE took    864.05 ms
+------------------------------------------------------------------------------------------
+update _evolution MARKETS read_file_line_by_line  took    33.0 ms
+_evolution table UPDATE took    1899.11 ms
+------------------------------------------------------------------------------------------
+update _evolution MARKETS read_file_line_by_line  took    11.0 ms
+_evolution table UPDATE took    2000.11 ms
+------------------------------------------------------------------------------------------
+update _evolution MARKETS read_file_line_by_line  took    3.0 ms
+_evolution table UPDATE took    2235.13 ms
+------------------------------------------------------------------------------------------
+2018-01-27 22:56:03       update _evolution MARKETS read_file_line_by_line  took    17.0 ms
+2018-01-27 22:56:03       _evolution table UPDATE took    2240.13 ms
+------------------------------------------------------------------------------------------

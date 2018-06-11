@@ -1,0 +1,711 @@
+2018-03-27 23:28:09    We made a SUCCESSFUL BUY. Now we must INSERT into the _tranzations table ... 
+2018-03-27 23:28:09   CURRENT_ACTIVE_MARKET : None
+2018-03-28 16:46:44    NO New markets ! Waiting ... 
+2018-03-28 16:48:47    NO New markets ! Waiting ... 
+2018-03-28 23:08:46    NO New markets ! Waiting ... 
+2018-03-28 23:10:21    NO New markets ! Waiting ... 
+2018-03-29 00:51:39    NO New markets ! Waiting ... 
+2018-03-29 01:55:28    NO New markets ! Waiting ... 
+2018-03-29 12:18:45     current_market :     length(cur_mark) = 0
+2018-03-29 12:18:45    NO New markets ! Waiting ... 
+2018-03-29 12:18:54     current_market :     length(cur_mark) = 0
+2018-03-29 12:18:54    NO New markets ! Waiting ... 
+2018-03-29 12:19:04     current_market :     length(cur_mark) = 0
+2018-03-29 12:19:04    NO New markets ! Waiting ... 
+2018-03-29 14:05:58     current_market :     length(cur_mark) = 0
+2018-03-29 14:05:58    NO New markets ! Waiting ... 
+2018-03-30 11:59:29      row_new : (('BTC-MCO', datetime.datetime(2018, 3, 30, 11, 59, 3), Decimal('30.8808'), Decimal('0.0000'), Decimal('0.0000'), Decimal('5.74'), Decimal('1.12'), Decimal('0.00067348'), Decimal('1.88'), Decimal('0.03'), 'new'),)
+2018-03-30 11:59:29      market: BTC-MCO,   vol=30.8808,   vol_buy =0.0000,   vol_sell=0.0000
+2018-03-30 11:59:29      vol_ch_1h=5.74,   vol_ch_1min=1.12,    price_ch_1h = 1.88,   price_ch_1min=0.03
+2018-03-30 11:59:29    Price_var = 1.9099999999999995
+2018-03-30 11:59:29    we selected a market, Now we check if it STEADY STATE = BTC-MCO
+2018-03-30 11:59:29     current_market :     length(cur_mark) = 0
+2018-03-30 11:59:29    NO New markets ! Waiting ... 
+2018-03-30 13:48:40     current_market :     length(cur_mark) = 0
+2018-03-30 13:48:40    NO New markets ! Waiting ... 
+2018-03-31 21:16:40     current_market :     length(cur_mark) = 0
+2018-03-31 21:16:40    NO New markets ! Waiting ... 
+2018-03-31 21:18:39      row_new : (('BTC-MUE', datetime.datetime(2018, 3, 31, 21, 18, 3), Decimal('7.3529'), Decimal('0.0029'), Decimal('0.0000'), Decimal('5.00'), Decimal('-0.50'), Decimal('0.00001357'), Decimal('0.89'), Decimal('0.89'), 'new'),)
+2018-03-31 21:18:39      market: BTC-MUE,   vol=7.3529,   vol_buy =0.0029,   vol_sell=0.0000
+2018-03-31 21:18:39      vol_ch_1h=5.00,   vol_ch_1min=-0.50,    price_ch_1h = 0.89,   price_ch_1min=0.89
+2018-03-31 21:18:39    Price_var = 0.9600000000000003
+2018-03-31 21:18:39    we selected a market, Now we check if it STEADY STATE = BTC-MUE
+2018-03-31 21:18:39     BTC-MUE  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-03-31 21:18:39     current_market : BTC-MUE    length(cur_mark) = 7
+2018-03-31 21:18:41      BTC_Balance  = 3e-08
+2018-03-31 21:18:41      get_Opened_Orders  = [],     length(gOO) = 0
+2018-03-31 21:18:41    write_active_market_to_file    BTC-MUE
+2018-03-31 21:19:44    _tranzactions table NOT UPDATED => INSERT INTO the _tranzactions table ... 
+2018-03-31 21:19:44    CURRENT_ACTIVE_MARKET : BTC-MUE   was  SUCCESSFUL BOUGHT 
+2018-03-31 21:19:44   bid =1.358e-05    ask =1.372e-05
+2018-03-31 21:19:44   update_tranzations_table(current_market, 1 ) completed 
+2018-03-31 21:19:44   remove(active_trade_market_file) DELETED 
+2018-03-31 21:19:44  $ $ $    TRADE____SUCCESSFULLY____COMPLETED    $ $ $ 
+
+2018-03-31 21:28:49     current_market :     length(cur_mark) = 0
+2018-03-31 21:28:49    NO New markets ! Waiting ... 
+2018-03-31 21:29:26     current_market :     length(cur_mark) = 0
+2018-03-31 21:29:26    NO New markets ! Waiting ... 
+2018-03-31 21:31:08     current_market :     length(cur_mark) = 0
+2018-03-31 21:31:08    NO New markets ! Waiting ... 
+2018-03-31 21:32:26     current_market :     length(cur_mark) = 0
+2018-03-31 21:32:26    NO New markets ! Waiting ... 
+2018-03-31 21:33:03     current_market :     length(cur_mark) = 0
+2018-03-31 21:33:03    NO New markets ! Waiting ... 
+2018-03-31 21:40:13     current_market :     length(cur_mark) = 0
+2018-03-31 21:40:13    NO New markets ! Waiting ... 
+2018-03-31 21:41:03     current_market :     length(cur_mark) = 0
+2018-03-31 21:41:03    NO New markets ! Waiting ... 
+2018-03-31 22:26:46     current_market :     length(cur_mark) = 0
+2018-03-31 22:26:48      BTC_Balance  = 3e-08
+2018-03-31 22:26:48      get_Opened_Orders  = [],     length(gOO) = 0
+2018-03-31 22:26:48    write_active_market_to_file    BTC-STRAT
+2018-03-31 22:36:04   bid =0.000533    ask =0.00053499
+2018-03-31 22:37:42   bid =0.000533    ask =0.000535
+2018-03-31 22:37:43SUCCESSFUL SELL Request at the price  = 0.00054509   uuid : 509a9fd0-fc99-42db-b29e-41cfe92a0fe8
+2018-03-31 22:37:43   current_market =BTC-STRAT    market_Balance =3.6887
+2018-03-31 22:38:05   bid =0.000533    ask =0.00053499
+2018-03-31 22:38:06   current_market =BTC-STRAT    We wait to sell at price =  0.00054509
+2018-04-01 14:08:28   bid =0.00051751    ask =0.00052149
+2018-04-02 21:34:01   bid =0.00051864    ask =0.00052452
+2018-04-02 21:34:12   bid =0.00051868    ask =0.00052452
+2018-04-02 21:35:26   bid =0.0005186    ask =0.00052417
+2018-04-02 21:40:46   bid =0.00051905    ask =0.0005238
+2018-04-02 21:57:04   bid =0.00052102    ask =0.00052407
+2018-04-02 21:57:40   bid =0.00052102    ask =0.00052407
+2018-04-02 21:57:57   bid =0.00052102    ask =0.00052407
+2018-04-02 21:58:57   bid =0.00052102    ask =0.00052396
+2018-04-02 21:59:33   bid =0.00052102    ask =0.00052396
+2018-04-02 22:06:49      row_new : (('BTC-BURST', datetime.datetime(2018, 4, 2, 22, 6, 3), Decimal('14.6342'), Decimal('0.0000'), Decimal('0.0742'), Decimal('5.34'), Decimal('0.51'), Decimal('0.00000206'), Decimal('-1.44'), Decimal('0.00'), 'new'),)
+2018-04-02 22:06:50      market: BTC-BURST,   vol=14.6342,   vol_buy =0.0000,   vol_sell=0.0742
+2018-04-02 22:06:50      vol_ch_1h=5.34,   vol_ch_1min=0.51,    price_ch_1h = -1.44,   price_ch_1min=0.00
+2018-04-02 22:06:50    Price_var = 1.39
+2018-04-02 22:06:50    we selected a market, Now we check if it STEADY STATE = BTC-BURST
+2018-04-02 22:07:00   bid =0.00052277    ask =0.00052407
+2018-04-02 22:07:18   bid =0.00052277    ask =0.00052395
+2018-04-02 22:52:54   bid =0.00051897    ask =0.00052272
+2018-04-02 22:57:22   bid =0.0005192    ask =0.000522
+2018-04-02 22:57:59   bid =0.0005192    ask =0.000522
+2018-04-02 22:58:00   current_market =BTC-STRAT    We wait to sell at price =  0.00055816
+2018-04-02 23:00:26      row_new : ()
+2018-04-02 23:02:54      row_new : (('BTC-XLM', datetime.datetime(2018, 4, 2, 20, 47, 3), Decimal('738.6891'), Decimal('0.0242'), Decimal('0.0290'), Decimal('24.94'), Decimal('0.02'), Decimal('0.00003280'), Decimal('2.18'), Decimal('0.43'), 'watch'), ('BTC-BCC', datetime.datetime(2018, 4, 2, 22, 27, 3), Decimal('317.8728'), Decimal('0.0315'), Decimal('0.0605'), Decimal('5.20'), Decimal('0.02'), Decimal('0.09590990'), Decimal('0.84'), Decimal('-0.01'), 'watch'), ('BTC-DCR', datetime.datetime(2018, 4, 2, 22, 50, 3), Decimal('85.2477'), Decimal('0.0000'), Decimal('0.0000'), Decimal('9.94'), Decimal('0.00'), Decimal('0.00591888'), Decimal('0.80'), Decimal('0.00'), 'watch'), ('BTC-NXT', datetime.datetime(2018, 4, 2, 22, 44, 3), Decimal('42.3707'), Decimal('0.0000'), Decimal('0.0000'), Decimal('22.92'), Decimal('0.00'), Decimal('0.00001662'), Decimal('4.14'), Decimal('0.00'), 'watch'), ('BTC-MCO', datetime.datetime(2018, 4, 2, 22, 47, 3), Decimal('21.4907'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.98'), Decimal('0.00'), Decimal('0.00066000'), Decimal('2.50'), Decimal('0.00'), 'watch'), ('BTC-BCPT', datetime.datetime(2018, 4, 2, 22, 39, 2), Decimal('17.2660'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.44'), Decimal('0.00'), Decimal('0.00005260'), Decimal('0.00'), Decimal('0.00'), 'watch'), ('BTC-GNO', datetime.datetime(2018, 4, 2, 22, 41, 3), Decimal('7.5958'), Decimal('0.0000'), Decimal('0.0000'), Decimal('16.04'), Decimal('0.00'), Decimal('0.00796935'), Decimal('-0.43'), Decimal('0.00'), 'watch'), ('BTC-MUSIC', datetime.datetime(2018, 4, 2, 22, 52, 3), Decimal('6.2479'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.65'), Decimal('0.00'), Decimal('0.00000145'), Decimal('-0.68'), Decimal('0.00'), 'watch'))
+2018-04-02 23:02:54      market: BTC-XLM,   vol=738.6891,   vol_buy =0.0242,   vol_sell=0.0290
+2018-04-02 23:02:54      vol_ch_1h=24.94,   vol_ch_1min=0.02,    price_ch_1h = 2.18,   price_ch_1min=0.43
+2018-04-02 23:02:55    Price_var = 2.230000000000001
+2018-04-02 23:02:55      market: BTC-BCC,   vol=317.8728,   vol_buy =0.0315,   vol_sell=0.0605
+2018-04-02 23:02:55      vol_ch_1h=5.20,   vol_ch_1min=0.02,    price_ch_1h = 0.84,   price_ch_1min=-0.01
+2018-04-02 23:02:55    Price_var = 0.8500000000000001
+2018-04-02 23:02:55      market: BTC-DCR,   vol=85.2477,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:02:55      vol_ch_1h=9.94,   vol_ch_1min=0.00,    price_ch_1h = 0.80,   price_ch_1min=0.00
+2018-04-02 23:02:55    Price_var = 0.8399999999999999
+2018-04-02 23:02:55      market: BTC-NXT,   vol=42.3707,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:02:55      vol_ch_1h=22.92,   vol_ch_1min=0.00,    price_ch_1h = 4.14,   price_ch_1min=0.00
+2018-04-02 23:02:56    Price_var = 4.08
+2018-04-02 23:02:56      market: BTC-MCO,   vol=21.4907,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:02:56      vol_ch_1h=6.98,   vol_ch_1min=0.00,    price_ch_1h = 2.50,   price_ch_1min=0.00
+2018-04-02 23:02:56    Price_var = 2.55
+2018-04-02 23:02:56      market: BTC-BCPT,   vol=17.2660,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:02:56      vol_ch_1h=6.44,   vol_ch_1min=0.00,    price_ch_1h = 0.00,   price_ch_1min=0.00
+2018-04-02 23:02:56    Price_var = 0.0
+2018-04-02 23:02:56      market: BTC-GNO,   vol=7.5958,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:02:56      vol_ch_1h=16.04,   vol_ch_1min=0.00,    price_ch_1h = -0.43,   price_ch_1min=0.00
+2018-04-02 23:02:57    Price_var = 0.3700000000000001
+2018-04-02 23:02:57      market: BTC-MUSIC,   vol=6.2479,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:02:57      vol_ch_1h=7.65,   vol_ch_1min=0.00,    price_ch_1h = -0.68,   price_ch_1min=0.00
+2018-04-02 23:02:57    Price_var = 0.6700000000000002
+2018-04-02 23:02:57    we selected a market, Now we check if it STEADY STATE = BTC-BCPT
+2018-04-02 23:02:57     BTC-BCPT  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-04-02 23:11:22      row_new : (('BTC-XLM', datetime.datetime(2018, 4, 2, 20, 47, 3), Decimal('773.2851'), Decimal('0.1751'), Decimal('0.1347'), Decimal('27.08'), Decimal('0.04'), Decimal('0.00003327'), Decimal('3.23'), Decimal('0.00'), 'watch'), ('BTC-DCR', datetime.datetime(2018, 4, 2, 22, 50, 3), Decimal('85.1766'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.59'), Decimal('0.00'), Decimal('0.00591889'), Decimal('0.34'), Decimal('0.00'), 'watch'), ('BTC-ZEN', datetime.datetime(2018, 4, 2, 23, 9, 3), Decimal('78.3618'), Decimal('0.1323'), Decimal('0.0141'), Decimal('13.51'), Decimal('0.30'), Decimal('0.00284762'), Decimal('8.91'), Decimal('2.74'), 'watch'), ('BTC-NXT', datetime.datetime(2018, 4, 2, 22, 44, 3), Decimal('42.3371'), Decimal('0.0294'), Decimal('0.0000'), Decimal('22.75'), Decimal('0.07'), Decimal('0.00001663'), Decimal('3.94'), Decimal('0.00'), 'watch'), ('BTC-MCO', datetime.datetime(2018, 4, 2, 22, 47, 3), Decimal('21.6620'), Decimal('0.0047'), Decimal('0.0000'), Decimal('7.69'), Decimal('0.02'), Decimal('0.00066733'), Decimal('4.47'), Decimal('0.00'), 'watch'), ('BTC-BCPT', datetime.datetime(2018, 4, 2, 22, 39, 2), Decimal('17.2300'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.22'), Decimal('0.00'), Decimal('0.00005260'), Decimal('0.46'), Decimal('0.00'), 'watch'), ('BTC-SHIFT', datetime.datetime(2018, 4, 2, 23, 7, 3), Decimal('11.0340'), Decimal('0.0000'), Decimal('0.0000'), Decimal('5.87'), Decimal('0.00'), Decimal('0.00023006'), Decimal('2.70'), Decimal('0.00'), 'watch'), ('BTC-GNO', datetime.datetime(2018, 4, 2, 22, 41, 3), Decimal('7.8292'), Decimal('0.0000'), Decimal('0.0000'), Decimal('19.61'), Decimal('0.00'), Decimal('0.00790000'), Decimal('-1.29'), Decimal('0.00'), 'watch'), ('BTC-BNT', datetime.datetime(2018, 4, 2, 23, 8, 3), Decimal('7.1702'), Decimal('0.0000'), Decimal('0.0000'), Decimal('5.31'), Decimal('0.00'), Decimal('0.00031370'), Decimal('-0.58'), Decimal('0.00'), 'watch'), ('BTC-MUSIC', datetime.datetime(2018, 4, 2, 22, 52, 3), Decimal('6.2225'), Decimal('0.0000'), Decimal('0.0055'), Decimal('7.24'), Decimal('-0.35'), Decimal('0.00000145'), Decimal('-2.03'), Decimal('0.00'), 'watch'))
+2018-04-02 23:11:22      market: BTC-XLM,   vol=773.2851,   vol_buy =0.1751,   vol_sell=0.1347
+2018-04-02 23:11:22      vol_ch_1h=27.08,   vol_ch_1min=0.04,    price_ch_1h = 3.23,   price_ch_1min=0.00
+2018-04-02 23:11:22    Price_var = 3.26
+2018-04-02 23:11:22      market: BTC-DCR,   vol=85.1766,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:11:22      vol_ch_1h=8.59,   vol_ch_1min=0.00,    price_ch_1h = 0.34,   price_ch_1min=0.00
+2018-04-02 23:11:22    Price_var = 0.3799999999999999
+2018-04-02 23:11:22      market: BTC-ZEN,   vol=78.3618,   vol_buy =0.1323,   vol_sell=0.0141
+2018-04-02 23:11:22      vol_ch_1h=13.51,   vol_ch_1min=0.30,    price_ch_1h = 8.91,   price_ch_1min=2.74
+2018-04-02 23:11:22    Price_var = 7.09
+2018-04-02 23:11:22      market: BTC-NXT,   vol=42.3371,   vol_buy =0.0294,   vol_sell=0.0000
+2018-04-02 23:11:22      vol_ch_1h=22.75,   vol_ch_1min=0.07,    price_ch_1h = 3.94,   price_ch_1min=0.00
+2018-04-02 23:11:23    Price_var = 3.8899999999999997
+2018-04-02 23:11:23      market: BTC-MCO,   vol=21.6620,   vol_buy =0.0047,   vol_sell=0.0000
+2018-04-02 23:11:23      vol_ch_1h=7.69,   vol_ch_1min=0.02,    price_ch_1h = 4.47,   price_ch_1min=0.00
+2018-04-02 23:11:23    Price_var = 4.470000000000001
+2018-04-02 23:11:23      market: BTC-BCPT,   vol=17.2300,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:11:23      vol_ch_1h=6.22,   vol_ch_1min=0.00,    price_ch_1h = 0.46,   price_ch_1min=0.00
+2018-04-02 23:11:23    Price_var = 0.46
+2018-04-02 23:11:23      market: BTC-SHIFT,   vol=11.0340,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:11:23      vol_ch_1h=5.87,   vol_ch_1min=0.00,    price_ch_1h = 2.70,   price_ch_1min=0.00
+2018-04-02 23:11:23    Price_var = 2.67
+2018-04-02 23:11:23      market: BTC-GNO,   vol=7.8292,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:11:23      vol_ch_1h=19.61,   vol_ch_1min=0.00,    price_ch_1h = -1.29,   price_ch_1min=0.00
+2018-04-02 23:11:24    Price_var = 1.25
+2018-04-02 23:11:24      market: BTC-BNT,   vol=7.1702,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:11:24      vol_ch_1h=5.31,   vol_ch_1min=0.00,    price_ch_1h = -0.58,   price_ch_1min=0.00
+2018-04-02 23:11:24    Price_var = 0.5700000000000003
+2018-04-02 23:11:24      market: BTC-MUSIC,   vol=6.2225,   vol_buy =0.0000,   vol_sell=0.0055
+2018-04-02 23:11:24      vol_ch_1h=7.24,   vol_ch_1min=-0.35,    price_ch_1h = -2.03,   price_ch_1min=0.00
+2018-04-02 23:11:24    Price_var = 2.0300000000000002
+2018-04-02 23:11:24    we selected a market, Now we check if it STEADY STATE = BTC-DCR
+2018-04-02 23:11:24     BTC-DCR  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-04-02 23:28:12      row_new : (('BTC-XLM', datetime.datetime(2018, 4, 2, 20, 47, 3), Decimal('808.3560'), Decimal('0.0051'), Decimal('0.0938'), Decimal('27.78'), Decimal('0.01'), Decimal('0.00003278'), Decimal('0.24'), Decimal('-0.03'), 'watch'), ('BTC-ADA', datetime.datetime(2018, 4, 2, 23, 27, 3), Decimal('741.8997'), Decimal('8.2627'), Decimal('0.0440'), Decimal('6.56'), Decimal('1.32'), Decimal('0.00002166'), Decimal('0.51'), Decimal('0.00'), 'watch'), ('BTC-LTC', datetime.datetime(2018, 4, 2, 23, 22, 3), Decimal('227.8933'), Decimal('0.0000'), Decimal('2.5280'), Decimal('9.05'), Decimal('2.47'), Decimal('0.01693641'), Decimal('0.12'), Decimal('0.00'), 'watch'), ('BTC-ZEN', datetime.datetime(2018, 4, 2, 23, 9, 3), Decimal('87.7772'), Decimal('0.0064'), Decimal('0.0134'), Decimal('25.23'), Decimal('-0.01'), Decimal('0.00283940'), Decimal('9.25'), Decimal('0.00'), 'watch'), ('BTC-DCR', datetime.datetime(2018, 4, 2, 22, 50, 3), Decimal('85.2129'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.47'), Decimal('0.00'), Decimal('0.00592038'), Decimal('0.03'), Decimal('0.00'), 'watch'), ('BTC-NXT', datetime.datetime(2018, 4, 2, 22, 44, 3), Decimal('42.3254'), Decimal('0.0100'), Decimal('0.0019'), Decimal('19.95'), Decimal('-0.67'), Decimal('0.00001643'), Decimal('0.24'), Decimal('-0.36'), 'watch'), ('BTC-ZRX', datetime.datetime(2018, 4, 2, 23, 20, 3), Decimal('28.2057'), Decimal('0.0020'), Decimal('0.0000'), Decimal('10.56'), Decimal('0.01'), Decimal('0.00007642'), Decimal('-0.55'), Decimal('0.59'), 'watch'), ('BTC-CVC', datetime.datetime(2018, 4, 2, 23, 14, 2), Decimal('27.7117'), Decimal('0.0000'), Decimal('0.0246'), Decimal('6.39'), Decimal('0.09'), Decimal('0.00002850'), Decimal('-0.21'), Decimal('0.04'), 'watch'), ('BTC-MCO', datetime.datetime(2018, 4, 2, 22, 47, 3), Decimal('21.7437'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.78'), Decimal('0.00'), Decimal('0.00065368'), Decimal('2.33'), Decimal('0.00'), 'watch'), ('BTC-SHIFT', datetime.datetime(2018, 4, 2, 23, 7, 3), Decimal('11.0023'), Decimal('0.0000'), Decimal('0.0000'), Decimal('5.54'), Decimal('0.00'), Decimal('0.00022966'), Decimal('1.74'), Decimal('0.00'), 'watch'), ('BTC-GNO', datetime.datetime(2018, 4, 2, 22, 41, 3), Decimal('7.8422'), Decimal('0.0000'), Decimal('0.0000'), Decimal('19.53'), Decimal('0.00'), Decimal('0.00797842'), Decimal('-1.05'), Decimal('0.00'), 'watch'), ('BTC-BNT', datetime.datetime(2018, 4, 2, 23, 8, 3), Decimal('7.2664'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.72'), Decimal('0.00'), Decimal('0.00031137'), Decimal('-1.32'), Decimal('0.00'), 'watch'), ('BTC-MUSIC', datetime.datetime(2018, 4, 2, 22, 52, 3), Decimal('6.2846'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.63'), Decimal('0.00'), Decimal('0.00000146'), Decimal('-0.68'), Decimal('0.00'), 'watch'))
+2018-04-02 23:28:12      market: BTC-XLM,   vol=808.3560,   vol_buy =0.0051,   vol_sell=0.0938
+2018-04-02 23:28:12      vol_ch_1h=27.78,   vol_ch_1min=0.01,    price_ch_1h = 0.24,   price_ch_1min=-0.03
+2018-04-02 23:28:13    Price_var = 0.32
+2018-04-02 23:28:13      market: BTC-ADA,   vol=741.8997,   vol_buy =8.2627,   vol_sell=0.0440
+2018-04-02 23:28:13      vol_ch_1h=6.56,   vol_ch_1min=1.32,    price_ch_1h = 0.51,   price_ch_1min=0.00
+2018-04-02 23:28:13    Price_var = 0.52
+2018-04-02 23:28:13      market: BTC-LTC,   vol=227.8933,   vol_buy =0.0000,   vol_sell=2.5280
+2018-04-02 23:28:13      vol_ch_1h=9.05,   vol_ch_1min=2.47,    price_ch_1h = 0.12,   price_ch_1min=0.00
+2018-04-02 23:28:13    Price_var = 0.14
+2018-04-02 23:28:13      market: BTC-ZEN,   vol=87.7772,   vol_buy =0.0064,   vol_sell=0.0134
+2018-04-02 23:28:13      vol_ch_1h=25.23,   vol_ch_1min=-0.01,    price_ch_1h = 9.25,   price_ch_1min=0.00
+2018-04-02 23:28:14    Price_var = 10.93
+2018-04-02 23:28:14      market: BTC-DCR,   vol=85.2129,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:28:14      vol_ch_1h=8.47,   vol_ch_1min=0.00,    price_ch_1h = 0.03,   price_ch_1min=0.00
+2018-04-02 23:28:14    Price_var = 0.06
+2018-04-02 23:28:14      market: BTC-NXT,   vol=42.3254,   vol_buy =0.0100,   vol_sell=0.0019
+2018-04-02 23:28:14      vol_ch_1h=19.95,   vol_ch_1min=-0.67,    price_ch_1h = 0.24,   price_ch_1min=-0.36
+2018-04-02 23:28:14    Price_var = 0.28
+2018-04-02 23:28:14      market: BTC-ZRX,   vol=28.2057,   vol_buy =0.0020,   vol_sell=0.0000
+2018-04-02 23:28:14      vol_ch_1h=10.56,   vol_ch_1min=0.01,    price_ch_1h = -0.55,   price_ch_1min=0.59
+2018-04-02 23:28:14    Price_var = 0.48
+2018-04-02 23:28:14      market: BTC-CVC,   vol=27.7117,   vol_buy =0.0000,   vol_sell=0.0246
+2018-04-02 23:28:14      vol_ch_1h=6.39,   vol_ch_1min=0.09,    price_ch_1h = -0.21,   price_ch_1min=0.04
+2018-04-02 23:28:15    Price_var = 0.08
+2018-04-02 23:28:15      market: BTC-MCO,   vol=21.7437,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:28:15      vol_ch_1h=7.78,   vol_ch_1min=0.00,    price_ch_1h = 2.33,   price_ch_1min=0.00
+2018-04-02 23:28:15    Price_var = 2.4
+2018-04-02 23:28:15      market: BTC-SHIFT,   vol=11.0023,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:28:15      vol_ch_1h=5.54,   vol_ch_1min=0.00,    price_ch_1h = 1.74,   price_ch_1min=0.00
+2018-04-02 23:28:15    Price_var = 1.73
+2018-04-02 23:28:15      market: BTC-GNO,   vol=7.8422,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:28:15      vol_ch_1h=19.53,   vol_ch_1min=0.00,    price_ch_1h = -1.05,   price_ch_1min=0.00
+2018-04-02 23:28:15    Price_var = 1.0
+2018-04-02 23:28:15      market: BTC-BNT,   vol=7.2664,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:28:15      vol_ch_1h=6.72,   vol_ch_1min=0.00,    price_ch_1h = -1.32,   price_ch_1min=0.00
+2018-04-02 23:28:16    Price_var = 1.31
+2018-04-02 23:28:16      market: BTC-MUSIC,   vol=6.2846,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:28:16      vol_ch_1h=8.63,   vol_ch_1min=0.00,    price_ch_1h = -0.68,   price_ch_1min=0.00
+2018-04-02 23:28:16    Price_var = 0.66
+2018-04-02 23:28:16    we selected a market, Now we check if it STEADY STATE = BTC-DCR
+2018-04-02 23:28:16     BTC-DCR  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-04-02 23:31:29      row_new : (('BTC-XLM', datetime.datetime(2018, 4, 2, 20, 47, 3), Decimal('814.2317'), Decimal('0.1066'), Decimal('0.1065'), Decimal('28.71'), Decimal('0.02'), Decimal('0.00003265'), Decimal('-0.46'), Decimal('-0.46'), 'watch'), ('BTC-ADA', datetime.datetime(2018, 4, 2, 23, 27, 3), Decimal('752.0785'), Decimal('6.0790'), Decimal('0.7948'), Decimal('8.51'), Decimal('0.89'), Decimal('0.00002154'), Decimal('-0.05'), Decimal('-0.42'), 'watch'), ('BTC-LTC', datetime.datetime(2018, 4, 2, 23, 22, 3), Decimal('227.9262'), Decimal('0.0307'), Decimal('0.0091'), Decimal('9.15'), Decimal('0.01'), Decimal('0.01693496'), Decimal('-0.27'), Decimal('0.00'), 'watch'), ('BTC-ZEN', datetime.datetime(2018, 4, 2, 23, 9, 3), Decimal('87.5624'), Decimal('0.0330'), Decimal('0.0557'), Decimal('24.83'), Decimal('-0.19'), Decimal('0.00277188'), Decimal('7.16'), Decimal('-1.20'), 'watch'), ('BTC-DCR', datetime.datetime(2018, 4, 2, 22, 50, 3), Decimal('85.2140'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.44'), Decimal('0.00'), Decimal('0.00591900'), Decimal('0.50'), Decimal('0.00'), 'watch'), ('BTC-NXT', datetime.datetime(2018, 4, 2, 22, 44, 3), Decimal('42.4523'), Decimal('0.0000'), Decimal('0.0827'), Decimal('19.16'), Decimal('0.20'), Decimal('0.00001650'), Decimal('0.30'), Decimal('0.00'), 'watch'), ('BTC-ZRX', datetime.datetime(2018, 4, 2, 23, 20, 3), Decimal('28.2057'), Decimal('0.0000'), Decimal('0.0000'), Decimal('10.04'), Decimal('0.00'), Decimal('0.00007642'), Decimal('-2.15'), Decimal('0.00'), 'watch'), ('BTC-CVC', datetime.datetime(2018, 4, 2, 23, 14, 2), Decimal('27.7155'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.38'), Decimal('0.00'), Decimal('0.00002868'), Decimal('-1.24'), Decimal('0.00'), 'watch'), ('BTC-MCO', datetime.datetime(2018, 4, 2, 22, 47, 3), Decimal('21.7437'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.78'), Decimal('0.00'), Decimal('0.00065368'), Decimal('2.33'), Decimal('0.00'), 'watch'), ('BTC-SHIFT', datetime.datetime(2018, 4, 2, 23, 7, 3), Decimal('11.1170'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.64'), Decimal('1.04'), Decimal('0.00022502'), Decimal('-0.32'), Decimal('-2.02'), 'watch'), ('BTC-GNO', datetime.datetime(2018, 4, 2, 22, 41, 3), Decimal('7.8422'), Decimal('0.0000'), Decimal('0.0000'), Decimal('19.53'), Decimal('0.00'), Decimal('0.00797842'), Decimal('-1.05'), Decimal('0.00'), 'watch'), ('BTC-BNT', datetime.datetime(2018, 4, 2, 23, 8, 3), Decimal('7.2664'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.72'), Decimal('0.00'), Decimal('0.00031137'), Decimal('-1.32'), Decimal('0.00'), 'watch'), ('BTC-MUSIC', datetime.datetime(2018, 4, 2, 22, 52, 3), Decimal('6.2665'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.30'), Decimal('0.02'), Decimal('0.00000145'), Decimal('-1.36'), Decimal('0.00'), 'watch'))
+2018-04-02 23:31:29      market: BTC-XLM,   vol=814.2317,   vol_buy =0.1066,   vol_sell=0.1065
+2018-04-02 23:31:29      vol_ch_1h=28.71,   vol_ch_1min=0.02,    price_ch_1h = -0.46,   price_ch_1min=-0.46
+2018-04-02 23:31:29    Price_var = 0.38
+2018-04-02 23:31:29      market: BTC-ADA,   vol=752.0785,   vol_buy =6.0790,   vol_sell=0.7948
+2018-04-02 23:31:29      vol_ch_1h=8.51,   vol_ch_1min=0.89,    price_ch_1h = -0.05,   price_ch_1min=-0.42
+2018-04-02 23:31:29    Price_var = 0.03
+2018-04-02 23:31:29      market: BTC-LTC,   vol=227.9262,   vol_buy =0.0307,   vol_sell=0.0091
+2018-04-02 23:31:29      vol_ch_1h=9.15,   vol_ch_1min=0.01,    price_ch_1h = -0.27,   price_ch_1min=0.00
+2018-04-02 23:31:29    Price_var = 0.25
+2018-04-02 23:31:29      market: BTC-ZEN,   vol=87.5624,   vol_buy =0.0330,   vol_sell=0.0557
+2018-04-02 23:31:29      vol_ch_1h=24.83,   vol_ch_1min=-0.19,    price_ch_1h = 7.16,   price_ch_1min=-1.20
+2018-04-02 23:31:30    Price_var = 10.93
+2018-04-02 23:31:30      market: BTC-DCR,   vol=85.2140,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:31:30      vol_ch_1h=8.44,   vol_ch_1min=0.00,    price_ch_1h = 0.50,   price_ch_1min=0.00
+2018-04-02 23:31:30    Price_var = 0.54
+2018-04-02 23:31:30      market: BTC-NXT,   vol=42.4523,   vol_buy =0.0000,   vol_sell=0.0827
+2018-04-02 23:31:30      vol_ch_1h=19.16,   vol_ch_1min=0.20,    price_ch_1h = 0.30,   price_ch_1min=0.00
+2018-04-02 23:31:30    Price_var = 0.34
+2018-04-02 23:31:30      market: BTC-ZRX,   vol=28.2057,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:31:30      vol_ch_1h=10.04,   vol_ch_1min=0.00,    price_ch_1h = -2.15,   price_ch_1min=0.00
+2018-04-02 23:31:30    Price_var = 2.12
+2018-04-02 23:31:30      market: BTC-CVC,   vol=27.7155,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:31:30      vol_ch_1h=6.38,   vol_ch_1min=0.00,    price_ch_1h = -1.24,   price_ch_1min=0.00
+2018-04-02 23:31:31    Price_var = 1.13
+2018-04-02 23:31:31      market: BTC-MCO,   vol=21.7437,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:31:31      vol_ch_1h=7.78,   vol_ch_1min=0.00,    price_ch_1h = 2.33,   price_ch_1min=0.00
+2018-04-02 23:31:31    Price_var = 2.4
+2018-04-02 23:31:31      market: BTC-SHIFT,   vol=11.1170,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:31:31      vol_ch_1h=6.64,   vol_ch_1min=1.04,    price_ch_1h = -0.32,   price_ch_1min=-2.02
+2018-04-02 23:31:31    Price_var = 0.29
+2018-04-02 23:31:31      market: BTC-GNO,   vol=7.8422,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:31:31      vol_ch_1h=19.53,   vol_ch_1min=0.00,    price_ch_1h = -1.05,   price_ch_1min=0.00
+2018-04-02 23:31:31    Price_var = 1.0
+2018-04-02 23:31:31      market: BTC-BNT,   vol=7.2664,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:31:31      vol_ch_1h=6.72,   vol_ch_1min=0.00,    price_ch_1h = -1.32,   price_ch_1min=0.00
+2018-04-02 23:31:32    Price_var = 1.31
+2018-04-02 23:31:32      market: BTC-MUSIC,   vol=6.2665,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:31:32      vol_ch_1h=8.30,   vol_ch_1min=0.02,    price_ch_1h = -1.36,   price_ch_1min=0.00
+2018-04-02 23:31:32    Price_var = 1.34
+2018-04-02 23:31:32    we selected a market, Now we check if it STEADY STATE = BTC-ADA
+2018-04-02 23:31:32     BTC-ADA  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-04-02 23:33:52      row_new : (('BTC-XLM', datetime.datetime(2018, 4, 2, 20, 47, 3), Decimal('814.3355'), Decimal('0.1057'), Decimal('0.0383'), Decimal('27.44'), Decimal('0.02'), Decimal('0.00003250'), Decimal('-0.88'), Decimal('-0.52'), 'watch'), ('BTC-ADA', datetime.datetime(2018, 4, 2, 23, 27, 3), Decimal('752.9091'), Decimal('0.0174'), Decimal('0.0187'), Decimal('8.74'), Decimal('0.02'), Decimal('0.00002153'), Decimal('-0.23'), Decimal('-0.32'), 'watch'), ('BTC-LTC', datetime.datetime(2018, 4, 2, 23, 22, 3), Decimal('227.9794'), Decimal('0.0000'), Decimal('0.0000'), Decimal('9.17'), Decimal('0.00'), Decimal('0.01685000'), Decimal('-0.77'), Decimal('0.00'), 'watch'), ('BTC-ZEN', datetime.datetime(2018, 4, 2, 23, 9, 3), Decimal('87.6798'), Decimal('0.0462'), Decimal('0.0000'), Decimal('25.00'), Decimal('0.08'), Decimal('0.00269997'), Decimal('4.38'), Decimal('0.00'), 'watch'), ('BTC-DCR', datetime.datetime(2018, 4, 2, 22, 50, 3), Decimal('85.2184'), Decimal('0.0000'), Decimal('0.0044'), Decimal('8.44'), Decimal('0.01'), Decimal('0.00591888'), Decimal('0.50'), Decimal('0.00'), 'watch'), ('BTC-NXT', datetime.datetime(2018, 4, 2, 22, 44, 3), Decimal('42.4523'), Decimal('0.0000'), Decimal('0.0000'), Decimal('19.10'), Decimal('0.00'), Decimal('0.00001650'), Decimal('0.79'), Decimal('0.00'), 'watch'), ('BTC-ZRX', datetime.datetime(2018, 4, 2, 23, 20, 3), Decimal('28.2057'), Decimal('0.0000'), Decimal('0.0000'), Decimal('10.03'), Decimal('0.00'), Decimal('0.00007642'), Decimal('-1.63'), Decimal('0.00'), 'watch'), ('BTC-CVC', datetime.datetime(2018, 4, 2, 23, 14, 2), Decimal('27.6990'), Decimal('0.0008'), Decimal('0.0000'), Decimal('6.32'), Decimal('-0.06'), Decimal('0.00002868'), Decimal('-1.24'), Decimal('0.00'), 'watch'), ('BTC-MCO', datetime.datetime(2018, 4, 2, 22, 47, 3), Decimal('21.5765'), Decimal('0.0033'), Decimal('0.0011'), Decimal('5.45'), Decimal('-0.77'), Decimal('0.00065368'), Decimal('0.10'), Decimal('0.00'), 'watch'), ('BTC-SHIFT', datetime.datetime(2018, 4, 2, 23, 7, 3), Decimal('11.1170'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.64'), Decimal('0.00'), Decimal('0.00022502'), Decimal('-0.32'), Decimal('0.00'), 'watch'), ('BTC-GNO', datetime.datetime(2018, 4, 2, 22, 41, 3), Decimal('7.8674'), Decimal('0.0000'), Decimal('0.0252'), Decimal('19.90'), Decimal('0.32'), Decimal('0.00797001'), Decimal('-0.47'), Decimal('-0.11'), 'watch'), ('BTC-BNT', datetime.datetime(2018, 4, 2, 23, 8, 3), Decimal('7.2787'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.90'), Decimal('0.17'), Decimal('0.00030904'), Decimal('-2.06'), Decimal('-0.75'), 'watch'), ('BTC-MUSIC', datetime.datetime(2018, 4, 2, 22, 52, 3), Decimal('6.2665'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.23'), Decimal('0.00'), Decimal('0.00000145'), Decimal('-1.36'), Decimal('0.00'), 'watch'))
+2018-04-02 23:33:52      market: BTC-XLM,   vol=814.3355,   vol_buy =0.1057,   vol_sell=0.0383
+2018-04-02 23:33:52      vol_ch_1h=27.44,   vol_ch_1min=0.02,    price_ch_1h = -0.88,   price_ch_1min=-0.52
+2018-04-02 23:33:53    Price_var = 0.81
+2018-04-02 23:33:53      market: BTC-ADA,   vol=752.9091,   vol_buy =0.0174,   vol_sell=0.0187
+2018-04-02 23:33:53      vol_ch_1h=8.74,   vol_ch_1min=0.02,    price_ch_1h = -0.23,   price_ch_1min=-0.32
+2018-04-02 23:33:53    Price_var = 0.21
+2018-04-02 23:33:53      market: BTC-LTC,   vol=227.9794,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:33:53      vol_ch_1h=9.17,   vol_ch_1min=0.00,    price_ch_1h = -0.77,   price_ch_1min=0.00
+2018-04-02 23:33:53    Price_var = 0.75
+2018-04-02 23:33:53      market: BTC-ZEN,   vol=87.6798,   vol_buy =0.0462,   vol_sell=0.0000
+2018-04-02 23:33:53      vol_ch_1h=25.00,   vol_ch_1min=0.08,    price_ch_1h = 4.38,   price_ch_1min=0.00
+2018-04-02 23:33:53    Price_var = 10.93
+2018-04-02 23:33:53      market: BTC-DCR,   vol=85.2184,   vol_buy =0.0000,   vol_sell=0.0044
+2018-04-02 23:33:53      vol_ch_1h=8.44,   vol_ch_1min=0.01,    price_ch_1h = 0.50,   price_ch_1min=0.00
+2018-04-02 23:33:54    Price_var = 0.54
+2018-04-02 23:33:54      market: BTC-NXT,   vol=42.4523,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:33:54      vol_ch_1h=19.10,   vol_ch_1min=0.00,    price_ch_1h = 0.79,   price_ch_1min=0.00
+2018-04-02 23:33:54    Price_var = 0.83
+2018-04-02 23:33:54      market: BTC-ZRX,   vol=28.2057,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:33:54      vol_ch_1h=10.03,   vol_ch_1min=0.00,    price_ch_1h = -1.63,   price_ch_1min=0.00
+2018-04-02 23:33:54    Price_var = 1.6
+2018-04-02 23:33:54      market: BTC-CVC,   vol=27.6990,   vol_buy =0.0008,   vol_sell=0.0000
+2018-04-02 23:33:54      vol_ch_1h=6.32,   vol_ch_1min=-0.06,    price_ch_1h = -1.24,   price_ch_1min=0.00
+2018-04-02 23:33:54    Price_var = 1.13
+2018-04-02 23:33:54      market: BTC-MCO,   vol=21.5765,   vol_buy =0.0033,   vol_sell=0.0011
+2018-04-02 23:33:54      vol_ch_1h=5.45,   vol_ch_1min=-0.77,    price_ch_1h = 0.10,   price_ch_1min=0.00
+2018-04-02 23:33:55    Price_var = 0.18
+2018-04-02 23:33:55      market: BTC-SHIFT,   vol=11.1170,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:33:55      vol_ch_1h=6.64,   vol_ch_1min=0.00,    price_ch_1h = -0.32,   price_ch_1min=0.00
+2018-04-02 23:33:55    Price_var = 0.29
+2018-04-02 23:33:55      market: BTC-GNO,   vol=7.8674,   vol_buy =0.0000,   vol_sell=0.0252
+2018-04-02 23:33:55      vol_ch_1h=19.90,   vol_ch_1min=0.32,    price_ch_1h = -0.47,   price_ch_1min=-0.11
+2018-04-02 23:33:55    Price_var = 0.42
+2018-04-02 23:33:55      market: BTC-BNT,   vol=7.2787,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:33:55      vol_ch_1h=6.90,   vol_ch_1min=0.17,    price_ch_1h = -2.06,   price_ch_1min=-0.75
+2018-04-02 23:33:55    Price_var = 2.06
+2018-04-02 23:33:55      market: BTC-MUSIC,   vol=6.2665,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:33:55      vol_ch_1h=8.23,   vol_ch_1min=0.00,    price_ch_1h = -1.36,   price_ch_1min=0.00
+2018-04-02 23:33:55    Price_var = 1.34
+2018-04-02 23:33:55    we selected a market, Now we check if it STEADY STATE = BTC-MCO
+2018-04-02 23:33:55     BTC-MCO  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-04-02 23:37:23      row_new : (('BTC-XLM', datetime.datetime(2018, 4, 2, 20, 47, 3), Decimal('820.6958'), Decimal('1.0937'), Decimal('0.2383'), Decimal('26.87'), Decimal('0.23'), Decimal('0.00003251'), Decimal('-1.07'), Decimal('0.03'), 'watch'), ('BTC-ADA', datetime.datetime(2018, 4, 2, 23, 27, 3), Decimal('753.2182'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.75'), Decimal('0.04'), Decimal('0.00002152'), Decimal('-0.19'), Decimal('0.00'), 'watch'), ('BTC-LTC', datetime.datetime(2018, 4, 2, 23, 22, 3), Decimal('228.2521'), Decimal('0.0492'), Decimal('0.0000'), Decimal('9.34'), Decimal('0.02'), Decimal('0.01693494'), Decimal('-0.21'), Decimal('0.00'), 'watch'), ('BTC-ZEN', datetime.datetime(2018, 4, 2, 23, 9, 3), Decimal('88.1704'), Decimal('0.0748'), Decimal('0.0000'), Decimal('25.71'), Decimal('0.28'), Decimal('0.00270000'), Decimal('4.38'), Decimal('0.38'), 'watch'), ('BTC-DCR', datetime.datetime(2018, 4, 2, 22, 50, 3), Decimal('85.2334'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.35'), Decimal('0.00'), Decimal('0.00592038'), Decimal('0.52'), Decimal('0.00'), 'watch'), ('BTC-NXT', datetime.datetime(2018, 4, 2, 22, 44, 3), Decimal('42.4609'), Decimal('0.0053'), Decimal('0.0000'), Decimal('18.51'), Decimal('0.01'), Decimal('0.00001650'), Decimal('0.06'), Decimal('0.43'), 'watch'), ('BTC-ZRX', datetime.datetime(2018, 4, 2, 23, 20, 3), Decimal('28.2057'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.97'), Decimal('0.00'), Decimal('0.00007642'), Decimal('-1.58'), Decimal('0.00'), 'watch'), ('BTC-CVC', datetime.datetime(2018, 4, 2, 23, 14, 2), Decimal('27.9690'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.11'), Decimal('0.00'), Decimal('0.00002875'), Decimal('-1.07'), Decimal('0.00'), 'watch'), ('BTC-BCPT', datetime.datetime(2018, 4, 2, 23, 35, 3), Decimal('17.5582'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.67'), Decimal('0.00'), Decimal('0.00005190'), Decimal('-1.33'), Decimal('0.00'), 'watch'), ('BTC-SHIFT', datetime.datetime(2018, 4, 2, 23, 7, 3), Decimal('11.1170'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.63'), Decimal('0.00'), Decimal('0.00022502'), Decimal('0.46'), Decimal('0.00'), 'watch'), ('BTC-GNO', datetime.datetime(2018, 4, 2, 22, 41, 3), Decimal('7.8722'), Decimal('0.0000'), Decimal('0.0000'), Decimal('19.39'), Decimal('0.00'), Decimal('0.00797001'), Decimal('-0.48'), Decimal('0.00'), 'watch'), ('BTC-BNT', datetime.datetime(2018, 4, 2, 23, 8, 3), Decimal('7.2911'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.08'), Decimal('0.00'), Decimal('0.00030904'), Decimal('-2.06'), Decimal('0.00'), 'watch'), ('BTC-MUSIC', datetime.datetime(2018, 4, 2, 22, 52, 3), Decimal('6.2665'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.87'), Decimal('0.00'), Decimal('0.00000145'), Decimal('-1.36'), Decimal('0.00'), 'watch'))
+2018-04-02 23:37:23      market: BTC-XLM,   vol=820.6958,   vol_buy =1.0937,   vol_sell=0.2383
+2018-04-02 23:37:23      vol_ch_1h=26.87,   vol_ch_1min=0.23,    price_ch_1h = -1.07,   price_ch_1min=0.03
+2018-04-02 23:37:23    Price_var = 1.0
+2018-04-02 23:39:07      row_new : (('BTC-XLM', datetime.datetime(2018, 4, 2, 20, 47, 3), Decimal('820.9821'), Decimal('0.0107'), Decimal('0.0840'), Decimal('26.42'), Decimal('0.03'), Decimal('0.00003266'), Decimal('-0.79'), Decimal('0.46'), 'watch'), ('BTC-ADA', datetime.datetime(2018, 4, 2, 23, 27, 3), Decimal('767.6095'), Decimal('9.5482'), Decimal('4.8478'), Decimal('10.68'), Decimal('1.91'), Decimal('0.00002150'), Decimal('-0.28'), Decimal('-0.09'), 'watch'), ('BTC-LTC', datetime.datetime(2018, 4, 2, 23, 22, 3), Decimal('228.2521'), Decimal('0.0000'), Decimal('0.0000'), Decimal('9.84'), Decimal('0.00'), Decimal('0.01693494'), Decimal('-0.21'), Decimal('0.00'), 'watch'), ('BTC-ZEN', datetime.datetime(2018, 4, 2, 23, 9, 3), Decimal('88.2413'), Decimal('0.0219'), Decimal('0.0000'), Decimal('25.76'), Decimal('0.08'), Decimal('0.00271000'), Decimal('4.69'), Decimal('0.37'), 'watch'), ('BTC-DCR', datetime.datetime(2018, 4, 2, 22, 50, 3), Decimal('85.2334'), Decimal('0.0000'), Decimal('0.0000'), Decimal('8.35'), Decimal('0.00'), Decimal('0.00592038'), Decimal('0.52'), Decimal('0.00'), 'watch'), ('BTC-NXT', datetime.datetime(2018, 4, 2, 22, 44, 3), Decimal('42.4609'), Decimal('0.0000'), Decimal('0.0000'), Decimal('18.51'), Decimal('0.00'), Decimal('0.00001650'), Decimal('0.06'), Decimal('0.00'), 'watch'), ('BTC-ZRX', datetime.datetime(2018, 4, 2, 23, 20, 3), Decimal('28.2122'), Decimal('0.0000'), Decimal('0.0420'), Decimal('8.91'), Decimal('0.02'), Decimal('0.00007642'), Decimal('-1.58'), Decimal('0.00'), 'watch'), ('BTC-CVC', datetime.datetime(2018, 4, 2, 23, 14, 2), Decimal('27.9690'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.11'), Decimal('0.00'), Decimal('0.00002875'), Decimal('-1.07'), Decimal('0.00'), 'watch'), ('BTC-BCPT', datetime.datetime(2018, 4, 2, 23, 35, 3), Decimal('17.5594'), Decimal('0.0012'), Decimal('0.0000'), Decimal('7.67'), Decimal('0.01'), Decimal('0.00005190'), Decimal('-1.33'), Decimal('0.00'), 'watch'), ('BTC-SHIFT', datetime.datetime(2018, 4, 2, 23, 7, 3), Decimal('11.1170'), Decimal('0.0000'), Decimal('0.0000'), Decimal('6.63'), Decimal('0.00'), Decimal('0.00022502'), Decimal('0.46'), Decimal('0.00'), 'watch'), ('BTC-GNO', datetime.datetime(2018, 4, 2, 22, 41, 3), Decimal('7.8722'), Decimal('0.0000'), Decimal('0.0000'), Decimal('19.39'), Decimal('0.00'), Decimal('0.00797001'), Decimal('-0.48'), Decimal('0.00'), 'watch'), ('BTC-BNT', datetime.datetime(2018, 4, 2, 23, 8, 3), Decimal('7.2911'), Decimal('0.0000'), Decimal('0.0000'), Decimal('7.08'), Decimal('0.00'), Decimal('0.00030904'), Decimal('-2.06'), Decimal('0.00'), 'watch'), ('BTC-MUSIC', datetime.datetime(2018, 4, 2, 22, 52, 3), Decimal('6.2541'), Decimal('0.0000'), Decimal('0.0015'), Decimal('7.64'), Decimal('-0.20'), Decimal('0.00000145'), Decimal('-0.68'), Decimal('0.00'), 'watch'))
+2018-04-02 23:39:07      market: BTC-XLM,   vol=820.9821,   vol_buy =0.0107,   vol_sell=0.0840
+2018-04-02 23:39:07      vol_ch_1h=26.42,   vol_ch_1min=0.03,    price_ch_1h = -0.79,   price_ch_1min=0.46
+2018-04-02 23:39:07    Price_var = 0.72
+2018-04-02 23:39:07      market: BTC-ADA,   vol=767.6095,   vol_buy =9.5482,   vol_sell=4.8478
+2018-04-02 23:39:07      vol_ch_1h=10.68,   vol_ch_1min=1.91,    price_ch_1h = -0.28,   price_ch_1min=-0.09
+2018-04-02 23:39:08    Price_var = 0.26
+2018-04-02 23:39:08      market: BTC-LTC,   vol=228.2521,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:39:08      vol_ch_1h=9.84,   vol_ch_1min=0.00,    price_ch_1h = -0.21,   price_ch_1min=0.00
+2018-04-02 23:39:08    Price_var = 0.19
+2018-04-02 23:39:08      market: BTC-ZEN,   vol=88.2413,   vol_buy =0.0219,   vol_sell=0.0000
+2018-04-02 23:39:08      vol_ch_1h=25.76,   vol_ch_1min=0.08,    price_ch_1h = 4.69,   price_ch_1min=0.37
+2018-04-02 23:39:08    Price_var = 10.93
+2018-04-02 23:39:08      market: BTC-DCR,   vol=85.2334,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:39:08      vol_ch_1h=8.35,   vol_ch_1min=0.00,    price_ch_1h = 0.52,   price_ch_1min=0.00
+2018-04-02 23:39:08    Price_var = 0.57
+2018-04-02 23:39:08      market: BTC-NXT,   vol=42.4609,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:39:08      vol_ch_1h=18.51,   vol_ch_1min=0.00,    price_ch_1h = 0.06,   price_ch_1min=0.00
+2018-04-02 23:39:09    Price_var = 0.11
+2018-04-02 23:39:09      market: BTC-ZRX,   vol=28.2122,   vol_buy =0.0000,   vol_sell=0.0420
+2018-04-02 23:39:09      vol_ch_1h=8.91,   vol_ch_1min=0.02,    price_ch_1h = -1.58,   price_ch_1min=0.00
+2018-04-02 23:39:09    Price_var = 1.56
+2018-04-02 23:39:09      market: BTC-CVC,   vol=27.9690,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:39:09      vol_ch_1h=7.11,   vol_ch_1min=0.00,    price_ch_1h = -1.07,   price_ch_1min=0.00
+2018-04-02 23:39:09    Price_var = 0.95
+2018-04-02 23:39:09      market: BTC-BCPT,   vol=17.5594,   vol_buy =0.0012,   vol_sell=0.0000
+2018-04-02 23:39:09      vol_ch_1h=7.67,   vol_ch_1min=0.01,    price_ch_1h = -1.33,   price_ch_1min=0.00
+2018-04-02 23:39:09    Price_var = 1.33
+2018-04-02 23:39:09      market: BTC-SHIFT,   vol=11.1170,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:39:09      vol_ch_1h=6.63,   vol_ch_1min=0.00,    price_ch_1h = 0.46,   price_ch_1min=0.00
+2018-04-02 23:39:10    Price_var = 0.48
+2018-04-02 23:39:10      market: BTC-GNO,   vol=7.8722,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:39:10      vol_ch_1h=19.39,   vol_ch_1min=0.00,    price_ch_1h = -0.48,   price_ch_1min=0.00
+2018-04-02 23:39:10    Price_var = 0.43
+2018-04-02 23:39:10      market: BTC-BNT,   vol=7.2911,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-02 23:39:10      vol_ch_1h=7.08,   vol_ch_1min=0.00,    price_ch_1h = -2.06,   price_ch_1min=0.00
+2018-04-02 23:39:10    Price_var = 2.06
+2018-04-02 23:39:10      market: BTC-MUSIC,   vol=6.2541,   vol_buy =0.0000,   vol_sell=0.0015
+2018-04-02 23:39:10      vol_ch_1h=7.64,   vol_ch_1min=-0.20,    price_ch_1h = -0.68,   price_ch_1min=0.00
+2018-04-02 23:39:10    Price_var = 0.66
+2018-04-02 23:39:10    we selected a market, Now we check if it STEADY STATE = BTC-XLM
+2018-04-02 23:39:10     BTC-XLM  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-04-03 01:05:50      row_new : (('BTC-XMR', datetime.datetime(2018, 4, 3, 1, 5, 3), Decimal('107.9262'), Decimal('0.0000'), Decimal('0.0000'), Decimal('5.04'), Decimal('0.46'), Decimal('0.02497833'), Decimal('-0.48'), Decimal('0.00'), 'new'),)
+2018-04-03 01:05:50      market: BTC-XMR,   vol=107.9262,   vol_buy =0.0000,   vol_sell=0.0000
+2018-04-03 01:05:50      vol_ch_1h=5.04,   vol_ch_1min=0.46,    price_ch_1h = -0.48,   price_ch_1min=0.00
+2018-04-03 01:05:50    Price_var = 0.39
+2018-04-03 01:05:50    we selected a market, Now we check if it STEADY STATE = BTC-XMR
+2018-04-03 01:05:50     BTC-XMR  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-04-05 09:19:21   bid =0.00052103    ask =0.00052238
+2018-04-10 22:18:02   bid =0.00054549    ask =0.0005455
+2018-04-10 22:18:05   current_market =BTC-STRAT    There are No Orders NEWER than 12 . Something went wrong ! 
+2018-04-10 22:18:58   bid =0.00013379    ask =0.00013386
+2018-04-10 22:18:58   current_market =BTC-PAY    We wait to sell at price =  0.00013714
+2018-04-11 10:04:05   bid =2.899e-05    ask =2.924e-05
+2018-04-11 10:04:05   current_market =BTC-BAT    We wait to sell at price =  2.988e-05
+2018-04-18 15:44:39    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-18 15:46:16    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-18 15:50:53    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-18 15:50:53    market: BTC-CRW,   vol=10.3103,   vol_buy = 0.0000,   vol_sell = 0.0000   Price_var = 1.68
+2018-04-18 15:50:53    vol_ch_1h = 8.01,   vol_ch_1min = 6.45,    price_ch_1h = 0.55,   price_ch_1min = 0.01
+2018-04-18 15:53:24    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-18 15:53:24    market: BTC-DCR,   vol=55.8679,   vol_buy = 1.0246,   vol_sell = 0.0000   Price_var = -2.91
+2018-04-18 15:53:24    vol_ch_1h = 8.16,   vol_ch_1min = 5.67,    price_ch_1h = 1.54,   price_ch_1min = 0.37
+2018-04-18 15:53:25    market: BTC-DTB,   vol=5.5767,   vol_buy = 0.0000,   vol_sell = 0.0513   Price_var = 1.75
+2018-04-18 15:53:25    vol_ch_1h = 5.13,   vol_ch_1min = 0.93,    price_ch_1h = 0.43,   price_ch_1min = -1.43
+2018-04-18 15:53:58    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-18 15:53:58    market: BTC-DCR,   vol=55.8679,   vol_buy = 1.0246,   vol_sell = 0.0000   Price_var = -2.91
+2018-04-18 15:53:58    vol_ch_1h = 8.16,   vol_ch_1min = 5.67,    price_ch_1h = 1.54,   price_ch_1min = 0.37
+2018-04-18 15:53:59    market: BTC-DTB,   vol=5.5767,   vol_buy = 0.0000,   vol_sell = 0.0513   Price_var = 1.75
+2018-04-18 15:53:59    vol_ch_1h = 5.13,   vol_ch_1min = 0.93,    price_ch_1h = 0.43,   price_ch_1min = -1.43
+2018-04-18 15:58:21    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-18 16:04:55    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-18 16:04:55    market: BTC-ARK,   vol=160.6363,   vol_buy = 0.0400,   vol_sell = 0.0000   Price_var = 3.38
+2018-04-18 16:04:55    vol_ch_1h = 6.02,   vol_ch_1min = 0.01,    price_ch_1h = -0.34,   price_ch_1min = 0.10
+2018-04-18 16:23:54    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-26 12:24:32   No market and no available Balance. Manual action required. Nothing to do !
+2018-04-26 12:24:59   No market and no available Balance. Manual action required. Nothing to do !
+2018-04-26 12:26:23   BTC_Balance  = 0.002
+2018-04-26 12:26:23   get_Opened_Orders  = [],     length(gOO) = 0
+2018-04-26 12:26:23   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:26:23   current_market : BTC-ADA
+2018-04-26 12:26:23   bid : 3.055e-05    ask :3.056e-05
+2018-04-26 12:26:23   get_buy_price : 3.055e-05
+2018-04-26 12:26:24   ~~~ We DO NOT have ORDERS for market BTC-ADA !   INITIATE BUY  !  ~~~
+2018-04-26 12:27:02   BTC_Balance  = 0.002
+2018-04-26 12:27:02   get_Opened_Orders  = [],     length(gOO) = 0
+2018-04-26 12:27:02   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:27:02   current_market : BTC-ADA
+2018-04-26 12:27:02   bid : 3.055e-05    ask :3.056e-05
+2018-04-26 12:27:02   get_buy_price : 3.055e-05
+2018-04-26 12:27:03   ~~~ We DO NOT have ORDERS for market BTC-ADA !   INITIATE BUY  !  ~~~
+2018-04-26 12:40:40   BTC_Balance  = 0.002
+2018-04-26 12:40:41   get_Opened_Orders  = [(8.128e-05, 'ba41fb51-969c-4818-8dc9-38544ccb9cd0')],     length(gOO) = 1
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:42   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:42   current_market : BTC-XRP
+2018-04-26 12:40:42   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:42   get_buy_price : 8.831e-05
+2018-04-26 12:40:42   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:43   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:43   current_market : BTC-XRP
+2018-04-26 12:40:43   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:43   get_buy_price : 8.831e-05
+2018-04-26 12:40:43   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:44   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:44   current_market : BTC-XRP
+2018-04-26 12:40:44   bid : 8.829e-05    ask :8.842e-05
+2018-04-26 12:40:44   get_buy_price : 8.83e-05
+2018-04-26 12:40:44   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:44   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:44   current_market : BTC-XRP
+2018-04-26 12:40:44   bid : 8.829e-05    ask :8.842e-05
+2018-04-26 12:40:44   get_buy_price : 8.83e-05
+2018-04-26 12:40:44   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:44   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:44   current_market : BTC-XRP
+2018-04-26 12:40:44   bid : 8.829e-05    ask :8.847e-05
+2018-04-26 12:40:44   get_buy_price : 8.831e-05
+2018-04-26 12:40:44   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:44   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:44   current_market : BTC-XRP
+2018-04-26 12:40:44   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:44   get_buy_price : 8.848e-05
+2018-04-26 12:40:44   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:44   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:44   current_market : BTC-XRP
+2018-04-26 12:40:44   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:44   get_buy_price : 8.848e-05
+2018-04-26 12:40:44   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:40:45   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:40:45   current_market : BTC-XRP
+2018-04-26 12:40:45   bid : 8.847e-05    ask :8.856e-05
+2018-04-26 12:40:45   get_buy_price : 8.848e-05
+2018-04-26 12:40:45   past_Buy_offer :  8.128e-05
+2018-04-26 12:42:11   BTC_Balance  = 0.002
+2018-04-26 12:42:11   get_Opened_Orders  = [(8.128e-05, 'ba41fb51-969c-4818-8dc9-38544ccb9cd0')],     length(gOO) = 1
+2018-04-26 12:42:12   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:42:12   current_market : BTC-XRP
+2018-04-26 12:42:12   bid : 8.862e-05    ask :8.865e-05
+2018-04-26 12:42:12   get_buy_price : 8.862e-05
+2018-04-26 12:42:12   past_Buy_offer :  8.128e-05
+2018-04-26 12:42:12   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:42:12   current_market : BTC-XRP
+2018-04-26 12:42:12   bid : 8.862e-05    ask :8.865e-05
+2018-04-26 12:42:12   get_buy_price : 8.862e-05
+2018-04-26 12:42:12   past_Buy_offer :  8.128e-05
+2018-04-26 12:42:12   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:42:12   current_market : BTC-XRP
+2018-04-26 12:42:12   bid : 8.862e-05    ask :8.865e-05
+2018-04-26 12:42:12   get_buy_price : 8.862e-05
+2018-04-26 12:42:12   past_Buy_offer :  8.128e-05
+2018-04-26 12:42:12   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:42:12   current_market : BTC-XRP
+2018-04-26 12:42:12   bid : 8.862e-05    ask :8.865e-05
+2018-04-26 12:42:12   get_buy_price : 8.862e-05
+2018-04-26 12:42:12   past_Buy_offer :  8.128e-05
+2018-04-26 12:42:12   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:42:12   current_market : BTC-XRP
+2018-04-26 12:42:12   bid : 8.862e-05    ask :8.865e-05
+2018-04-26 12:42:12   get_buy_price : 8.862e-05
+2018-04-26 12:42:12   past_Buy_offer :  8.128e-05
+2018-04-26 12:42:13   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:42:13   current_market : BTC-XRP
+2018-04-26 12:42:13   bid : 8.862e-05    ask :8.865e-05
+2018-04-26 12:42:13   get_buy_price : 8.862e-05
+2018-04-26 12:42:13   past_Buy_offer :  8.128e-05
+2018-04-26 12:42:13   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:42:13   current_market : BTC-XRP
+2018-04-26 12:42:13   bid : 8.862e-05    ask :8.865e-05
+2018-04-26 12:42:13   get_buy_price : 8.862e-05
+2018-04-26 12:42:13   past_Buy_offer :  8.128e-05
+2018-04-26 12:42:13   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:42:13   current_market : BTC-XRP
+2018-04-26 12:42:13   bid : 8.862e-05    ask :8.865e-05
+2018-04-26 12:42:13   get_buy_price : 8.862e-05
+2018-04-26 12:42:13   past_Buy_offer :  8.128e-05
+2018-04-26 12:43:53   BTC_Balance  = 0.002
+2018-04-26 12:43:53   get_Opened_Orders  = [(8.128e-05, 'ba41fb51-969c-4818-8dc9-38544ccb9cd0')],     length(gOO) = 1
+2018-04-26 12:43:53   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:43:53   current_market : BTC-XRP
+2018-04-26 12:43:53   bid : 8.891e-05    ask :8.894e-05
+2018-04-26 12:43:53   get_buy_price : 8.891e-05
+2018-04-26 12:43:53   past_Buy_offer :  8.128e-05
+2018-04-26 12:43:53   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:43:53   current_market : BTC-XRP
+2018-04-26 12:43:53   bid : 8.891e-05    ask :8.894e-05
+2018-04-26 12:43:53   get_buy_price : 8.891e-05
+2018-04-26 12:43:53   past_Buy_offer :  8.128e-05
+2018-04-26 12:43:53   ++++++++   into the WHILE LOOP +++++++
+2018-04-26 12:43:53   current_market : BTC-XRP
+2018-04-26 12:43:53   bid : 8.891e-05    ask :8.894e-05
+2018-04-26 12:43:53   get_buy_price : 8.891e-05
+2018-04-26 12:43:53   past_Buy_offer :  8.128e-05
+2018-04-27 19:24:04    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-27 19:24:05    market: BTC-ETC,   vol=452.8404,   vol_buy = 0.0000,   vol_sell = 0.1283
+2018-04-27 19:24:05    vol_ch_1h = 5.29,   vol_ch_1min = 0.05,    price_ch_1h = 3.06,   price_ch_1min = -0.25
+2018-04-27 19:24:05    Price_var_1 = 0.41     Price_var_2 = 0.14
+2018-04-27 19:24:05    we selected a market, Now we check if it STEADY STATE = BTC-ETC
+2018-04-27 19:24:05     BTC-ETC  ++++   This is a steady state price market, We will RETURN IT : ++++ 
+2018-04-27 19:25:05    NEW MARKETS CASE - look_for_market_opportunities ...
+2018-04-27 19:25:06    market: BTC-ETC,   vol=452.8404,   vol_buy = 0.0000,   vol_sell = 0.1283
+2018-04-27 19:25:06    vol_ch_1h = 5.29,   vol_ch_1min = 0.05,    price_ch_1h = 3.06,   price_ch_1min = -0.25
+2018-04-27 19:25:06    Price_var_1 = 3.39     Price_var_2 = 3.1
+2018-05-04 11:44:38   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_PROCESS ;   coin_bal=0.16680000
+2018-05-04 11:44:46   status : SELL_PROCESS    bid =0.00420001    ask =0.00420002
+2018-05-04 11:45:51   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_PROCESS ;   coin_bal=0.16680000
+2018-05-04 11:46:06   status : SELL_PROCESS    bid =0.00420001    ask =0.00420002
+2018-05-22 17:57:21   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:28:40   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:30:44   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:33:20   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:33:37   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:33:55   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:33:55   status : Market is the current market BTC-ZEN,  but the order is not found
+2018-05-22 18:35:10   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:35:10   status :   BTC-ZEN  is the current market ,  but the order is not found
+2018-05-22 18:35:20   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:35:20   status :   BTC-ZEN  is the current market ,  but the order is not found
+2018-05-22 18:36:53   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:36:53   status :   BTC-ZEN  is the current market ,  but the order is not found
+2018-05-22 18:39:09   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:39:09   status :   BTC-ZEN  is the current market ,  but the CLOSED SELL order is not found
+2018-05-22 18:45:20   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:45:20   status :   BTC-ZEN  is the current market ,  but the CLOSED SELL order is not found
+2018-05-22 18:47:33   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:47:35   status :   BTC-ZEN  is the current market ,  but the CLOSED SELL order is not found
+2018-05-22 18:50:09   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:50:09   status :   BTC-ZEN  is the current market ,  but the CLOSED SELL order is not found
+2018-05-22 18:59:55   first_result > 0 ;  $$ BTC-ZEN $$ ;  status :  SELL_FINISHED ;   coin_bal=0.16680000
+2018-05-22 18:59:55   status :   BTC-ZEN  is the current market ,  but the CLOSED SELL order is not found
+2018-05-24 11:37:38   first_result > 0 ;  $$ BTC-STRAT $$ ;  status :  SELL_PROCESS ;   coin_bal=2.46802469
+2018-05-24 11:37:40   status : SELL_PROCESS    bid =0.000725    ask =0.000727
+2018-05-24 11:37:40   status : SELL_PROCESS   get Open Orders SELL =[]
+2018-05-24 11:37:40   status : SELL_PROCESS   current_market =BTC-STRAT   Trade finished 
+2018-05-24 11:37:40   status : SELL_PROCESS   current_market =BTC-STRAT, update_result_5   1
+2018-05-24 11:37:40   status : SELL_PROCESS   current_market =BTC-STRAT   There are No Orders NEWER than 24 . Something went wrong ! 
+2018-05-24 20:43:05   first_result > 0 ;  $$ BTC-QTUM $$ ;  status :  SELL_PROCESS ;   coin_bal=0.47040000
+2018-05-24 20:43:06   status : SELL_PROCESS    bid =0.0017774    ask =0.00179045
+2018-05-24 20:48:52   first_result > 0 ;  $$ BTC-QTUM $$ ;  status :  SELL_PROCESS ;   coin_bal=0.47040000
+2018-05-24 20:48:54   status : SELL_PROCESS    bid =0.0017839    ask =0.0017977
+2018-05-24 20:48:54   status : SELL_PROCESS   get Open Orders SELL =[('BTC-QTUM', '2018-05-24 18:18:08', 0.00182856, 0.4704, '6b9d730a-18ab-445c-b69c-a4e2fc4ab5ba')]
+2018-05-24 20:48:54   status : SELL_PROCESS   current_market =BTC-QTUM    We wait to sell at price =  BTC-QTUM
+2018-05-24 20:51:10   first_result > 0 ;  $$ BTC-QTUM $$ ;  status :  SELL_PROCESS ;   coin_bal=0.47040000
+2018-05-24 20:51:12   status : SELL_PROCESS    bid =0.00178403    ask =0.0017984
+2018-05-24 20:51:12   status : SELL_PROCESS   get Open Orders SELL =[('BTC-QTUM', '2018-05-24 18:18:08', 0.00182856, 0.4704, '6b9d730a-18ab-445c-b69c-a4e2fc4ab5ba')]
+2018-05-24 20:51:12   status : SELL_PROCESS   current_market =BTC-QTUM    We wait to sell at price =  BTC-QTUM
+2018-05-24 20:58:37   first_result > 0 ;  $$ BTC-QTUM $$ ;  status :  SELL_PROCESS ;   coin_bal=0.47040000
+2018-05-24 20:58:38   status : SELL_PROCESS    bid =0.00178637    ask =0.00180666
+2018-05-24 20:58:38   status : SELL_PROCESS   get Open Orders SELL =[]
+2018-05-24 20:58:39   status : SELL_PROCESS   SELL REQUEST made at the price  = 0.00182856   uuid : 19ef785e-ac5d-4fa0-ac2b-4b05c2c4d703
+2018-05-24 20:58:39   status : SELL_PROCESS,   current_market =BTC-QTUM    market_Balance =0.4704
+2018-06-02 12:52:29   first_result > 0 ;  $$ BTC-REP $$ ;  status :  BUY_REQUEST ;   coin_bal=0E-8
+2018-06-02 12:52:30   status : BUY_REQUEST   coin_bal = 0E-8
+2018-06-02 12:52:30   status :  BUY_REQUEST   - get Open Orders BUY : [('BTC-REP', '2018-06-02 01:54:06', 0.00514084, 0.1727, '47b4985e-18e7-4a71-8cce-7ac1c8fd619b')]
+2018-06-02 12:52:30   status :  BUY_REQUEST   - get Closed Orders BUY : []
+2018-06-02 12:52:32   status : BUY_REQUEST   current_market : BTC-REP
+2018-06-02 12:52:32   status : BUY_REQUEST   bid : 0.00516726    ask :0.00520474
+2018-06-02 12:52:32   status : BUY_REQUEST   get_buy_price : 0.00517101
+2018-06-02 12:52:32   status : BUY_REQUEST    len(gOO_BUY)  :  1
+2018-06-02 12:52:32   status : BUY_REQUEST   update_result_1 : 1
+2018-06-02 12:52:32   status : BUY_REQUEST   past_Buy_offer :  0.00514084
+2018-06-02 12:55:10   first_result > 0 ;  $$ BTC-REP $$ ;  status :  BUY_REQUEST ;   coin_bal=0E-8
+2018-06-02 12:55:11   status : BUY_REQUEST   coin_bal = 0E-8
+2018-06-02 12:55:11   status :  BUY_REQUEST   - get Open Orders BUY : [('BTC-REP', '2018-06-02 01:54:06', 0.00514084, 0.1727, '47b4985e-18e7-4a71-8cce-7ac1c8fd619b')]
+2018-06-02 12:55:11   status :  BUY_REQUEST   - get Closed Orders BUY : []
+2018-06-02 12:55:13   status : BUY_REQUEST   current_market : BTC-REP
+2018-06-02 12:55:13   status : BUY_REQUEST   bid : 0.00516726    ask :0.00521705
+2018-06-02 12:55:13   status : BUY_REQUEST   get_buy_price : 0.00517224
+2018-06-02 12:55:13   status : BUY_REQUEST    len(gOO_BUY)  :  1
+2018-06-02 12:55:13   status : BUY_REQUEST   update_result_1 : 1
+2018-06-02 12:55:13   status : BUY_REQUEST   past_Buy_offer :  0.00514084
+2018-06-02 12:55:30   first_result > 0 ;  $$ BTC-REP $$ ;  status :  BUY_REQUEST ;   coin_bal=0E-8
+2018-06-02 12:55:30   status : BUY_REQUEST   coin_bal = 0E-8
+2018-06-02 12:55:30   status :  BUY_REQUEST   - get Open Orders BUY : [('BTC-REP', '2018-06-02 01:54:06', 0.00514084, 0.1727, '47b4985e-18e7-4a71-8cce-7ac1c8fd619b')]
+2018-06-02 12:55:30   status :  BUY_REQUEST   - get Closed Orders BUY : []
+2018-06-02 12:55:33   status : BUY_REQUEST   current_market : BTC-REP
+2018-06-02 12:55:33   status : BUY_REQUEST   bid : 0.00516726    ask :0.00521296
+2018-06-02 12:55:33   status : BUY_REQUEST   get_buy_price : 0.00517183
+2018-06-02 12:55:33   status : BUY_REQUEST    len(gOO_BUY)  :  1
+2018-06-02 12:55:33   status : BUY_REQUEST   update_result_1 : 1
+2018-06-02 12:55:33   status : BUY_REQUEST   past_Buy_offer :  0.00514084
+2018-06-02 12:55:33   status : BUY_REQUEST   Time Expiration Section  - Delta time =  : 39682   time_in :2018-06-02 01:54:11
+2018-06-02 12:55:33   status : BUY_REQUEST   Sorry, we could not buy @ market : BTC-REP in 30 mins,     time_in = 2018-06-02 01:54:11
+2018-06-02 12:55:33   status : BUY_REQUEST   We cancelled all orders & removed the market from _trade_now,      BTC_Balance  = 2.7e-07
+2018-06-02 12:55:38   status : BUY_REQUEST   We cancelled the uuid with : ['47b4985e-18e7-4a71-8cce-7ac1c8fd619b']
+2018-06-02 12:55:38   status : BUY_REQUEST   We initiated a NEW BUY with bid = 0.00517183
+2018-06-02 12:56:35   BTC_balance = 0.0008903  - No new markets  with - static_markets_search !
