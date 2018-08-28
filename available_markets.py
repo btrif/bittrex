@@ -20,49 +20,68 @@ URL2 = 'https://bittrex.com/api/v1.1/public/getmarkets'
 #     print(  html )
 
 
+class ValidMarkets():
+    '''Description: Write ONLY valid markets to the file valid_markets_file.txt
 
-def get_delisted_markets( URL2):
-    ### We get here the external content which contain full specification. We'll read from here
-    ### notices regading the delisting of certain coins
-    del_MARKETS = get_bittrex_Content(URL2)
-    delisted_MARKETS = set()
-    for cnt, ITEM in enumerate(del_MARKETS) :
-        market = ITEM["MarketName"]
-        notice = str(ITEM['Notice'])
-        pattern = re.compile('[Dd]elist.*|[Rr]emov.*')
-        re.search(pattern, notice)
-        # print(str(cnt+1)+'.     ',  market, '     Notice : ', notice ,'          pattern =', re.search(pattern, notice))
+    '''
+    def __init__(self, URL ,URL2, filename ):
+        self.URL = URL
+        self.URL2 = URL2
+        self.filename = filename
+        self.delisted_MARKETS =  self.get_delisted_markets( )
+        self.valid_markets = self.write_to_file_valid_markets( )
 
-        # if str(notice).find('Delisted') != -1 :
-        if re.search(pattern, notice) :
+    def get_delisted_markets( self ):
+        ### We get here the external content which contain full specification. We'll read from here
+        ### notices regarding the delisting of certain coins
+        del_MARKETS = get_bittrex_Content(self.URL2)
+        delisted_MARKETS = set()
+        for cnt, ITEM in enumerate(del_MARKETS) :
+            market = ITEM["MarketName"]
+            notice = str(ITEM['Notice'])
+            pattern = re.compile('[Dd]elist.*|[Rr]emov.*')
+            re.search(pattern, notice)
             # print(str(cnt+1)+'.     ',  market, '     Notice : ', notice ,'          pattern =', re.search(pattern, notice))
-            delisted_MARKETS.add(market)
 
-    # print('== delisted_MARKETS == ', delisted_MARKETS )
-    return delisted_MARKETS
+            # if str(notice).find('Delisted') != -1 :
+            if re.search(pattern, notice) :
+                # print(str(cnt+1)+'.     ',  market, '     Notice : ', notice ,'          pattern =', re.search(pattern, notice))
+                delisted_MARKETS.add(market)
 
-
-print('== delisted_MARKETS == ' , get_delisted_markets( URL2) )
-
-def write_to_file_valid_markets(filename) :
-    delisted_MARKETS = get_delisted_markets(URL2)
-    #print('\n Markets to be soon DELISTED : ', delisted_MARKETS ,'\n' )
-    MARKETS = get_bittrex_Content(URL)
-    outF = open(filename , 'w')
-    cnt=1
-    for  ITEM in MARKETS :
-        market = ITEM["MarketName"]
-        if market not in delisted_MARKETS :
-            outF.write(market +'\n')
-            # print(str(cnt)+'.     ',  market)
-            cnt += 1
-    outF.close()
+        print('== delisted_MARKETS == ', delisted_MARKETS  )
+        print('len delisted_MARKETS : ', len(delisted_MARKETS) )
 
 
-# sleep(5)
-write_to_file_valid_markets(valid_markets_file)
+        return delisted_MARKETS
 
 
 
-#valid_Markets  = read_file_line_by_line(filename)
-#print(len(valid_Markets), valid_Markets )
+    def write_to_file_valid_markets( self ) :
+        ''':Description: Method to write ONLY valid Markets (not delisted or which will be removed) in the valid market file.txt
+        :param URL:
+        :param filename:
+        :return:
+        '''
+        MARKETS = get_bittrex_Content(self.URL)
+        print('len total MARKETS : ', len(MARKETS) )
+        outF = open(self.filename , 'w')
+        cnt=0
+        for  ITEM in MARKETS :
+            market = ITEM["MarketName"]
+            if market not in self.delisted_MARKETS :
+                outF.write(market +'\n')
+                # print(str(cnt+1)+'.     ',  market)
+                cnt += 1
+
+        print('len Valid Markets : ', cnt )
+        outF.close()
+
+
+if __name__ == '__main__':
+
+    VM = ValidMarkets(URL, URL2, valid_markets_file )
+    print('delisted Markets  : ', VM.delisted_MARKETS )
+
+
+# valid_Markets  = read_file_line_by_line( valid_markets_file )
+# print(len(valid_Markets), valid_Markets )
