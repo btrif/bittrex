@@ -1,0 +1,89 @@
+logging:
+    version: 1
+#    disable_existing_loggers: true
+
+
+    formatters:
+        brief:
+            format: '%(message)s'
+        default:
+            format: '%(asctime)s %(levelname)-8s [%(name)s] %(message)s'
+            datefmt: '%Y-%m-%d %H:%M:%S'
+        custom:
+            format: '%(asctime)s  %(levelname)s -  %(message)s'
+            datefmt: '%Y-%m-%d %H:%M:%S'
+        standard:
+            format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        error:
+            format: "%(levelname)s <PID %(process)d:%(processName)s> %(name)s.%(funcName)s(): %(message)s"
+
+
+    handlers:
+        console:
+            class: logging.StreamHandler
+            level: INFO
+            formatter: custom
+            stream: ext://sys.stdout
+
+        file_handler_API_bittrex_data:
+            class: logging.handlers.RotatingFileHandler
+            level: INFO
+            formatter: custom
+            filename: log/API_bittrex_data.log
+            maxBytes: 10485760 # 10MB
+            backupCount: 20
+            encoding: utf8
+
+#        error_file_handler:
+#            class: logging.handlers.RotatingFileHandler
+#            level: ERROR
+#            formatter: error
+#            filename: errors.log
+#            maxBytes: 10485760 # 10MB
+#            backupCount: 20
+#            encoding: utf8
+#
+#        debug_file_handler:
+#            class: logging.handlers.RotatingFileHandler
+#            level: DEBUG
+#            formatter: standard
+#            filename: debug.log
+#            maxBytes: 10485760 # 10MB
+#            backupCount: 20
+#            encoding: utf8
+#
+#        critical_file_handler:
+#            class: logging.handlers.RotatingFileHandler
+#            level: CRITICAL
+#            formatter: standard
+#            filename: critical.log
+#            maxBytes: 10485760 # 10MB
+#            backupCount: 20
+#            encoding: utf8
+#
+#        warn_file_handler:
+#            class: logging.handlers.RotatingFileHandler
+#            level: WARN
+#            formatter: standard
+#            filename: warn.log
+#            maxBytes: 10485760 # 10MB
+#            backupCount: 20
+#            encoding: utf8
+
+#    root:      # THIS IS THE UNIVERSAL LOGGER, You set from here all the logs if you have many modules and want same configuration
+#        level: NOTSET
+#        handlers: [console, file_handler]
+#        propogate: yes
+
+    loggers:
+        get_API_bittrex_data:    # Name of the Log
+            level: DEBUG
+#            handlers: [console, info_file_handler, error_file_handler, critical_file_handler, debug_file_handler, warn_file_handler]
+            handlers: [console, file_handler_API_bittrex_data]
+            propogate: no
+
+#        <module.x>:
+#            level: DEBUG
+#            handlers: [console, file_handler]
+#    #        handlers: [info_file_handler, error_file_handler, critical_file_handler, debug_file_handler, warn_file_handler]
+#            propogate: yes

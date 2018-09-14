@@ -1,0 +1,51 @@
+{
+    "logging": {
+        "formatters": {
+            "brief": {
+                "format": "%(message)s"
+            },
+            "custom": {
+                "datefmt": "%Y-%m-%d %H:%M:%S",
+                "format": "%(asctime)s  %(levelname)s -  %(message)s"
+            },
+            "default": {
+                "datefmt": "%Y-%m-%d %H:%M:%S",
+                "format": "%(asctime)s %(levelname)-8s [%(name)s] %(message)s"
+            },
+            "error": {
+                "format": "%(levelname)s <PID %(process)d:%(processName)s> %(name)s.%(funcName)s(): %(message)s"
+            },
+            "standard": {
+                "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+            }
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "custom",
+                "level": "INFO",
+                "stream": "ext://sys.stdout"
+            },
+            "file_handler_API_bittrex_data": {
+                "backupCount": 20,
+                "class": "logging.handlers.RotatingFileHandler",
+                "encoding": "utf8",
+                "filename": "log/API_bittrex_data.log",
+                "formatter": "custom",
+                "level": "WARNING",
+                "maxBytes": 10485760
+            }
+        },
+        "loggers": {
+            "get_API_bittrex_data": {
+                "handlers": [
+                    "console",
+                    "file_handler_API_bittrex_data"
+                ],
+                "level": "DEBUG",
+                "propogate": false
+            }
+        },
+        "version": 1
+    }
+}

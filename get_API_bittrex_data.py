@@ -1,52 +1,56 @@
-#  Created by Bogdan Trif on 10-01-2018 , 12:45 PM.
+#  Created by Bogdan Trif on 22-08-2018 , 10:36 AM.
 
-import time
+import time, os
+from platform import system
 import operator
 import pymysql
 import requests  # to make GET request
-from conf.db_conn import *
+from conf.sensitive import *
 from includes.DB_functions import *
 from includes.app_functions import *
-from os import remove, path
+from collections import OrderedDict
+import logging.config
+
+from os import path
 
 t1  = time.time()
 
-debug_level = 1
 
-connection = pymysql.connect( host= HOST, port=3306, user=USER, passwd=PASSWD, db=DB1 )
+###     LOGGING     ###
+config = init_logging( config_file= 'conf/logging.json' , log_type= 'json' )
+logging.config.dictConfig(config['logging'])
+logger = logging.getLogger('get_API_bittrex_data')
+
+
+
+connection = pymysql.connect( host= localhost, port=3306, user=USER, passwd=PASSWD, db=bittrex )
 cur = connection.cursor()
+# print('connection :', connection ,'    cursor :', cur)
+logger.debug('connection :' +str(connection) +'    cursor :' +str( cur) )
 
-date = time.strftime("%Y-%m-%d %H:%M:%S",   time.localtime() )
-# print( 'Current Date   --->   ', date ,'\n'  )
+
+cur_datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
 
 URL = 'https://bittrex.com/api/v1.1/public/getmarketsummaries'
+logger.debug('markets file : ' + str(bittrex_markets_file) )
 
-### Current Trading Market :
-current_market_query = 'SELECT market, time_in FROM `_trade_now`;'
-query_current_market_result = cur.execute( current_market_query )
-if query_current_market_result > 0 :
-    row_res = cur.fetchone()
-    current_market = row_res[0]
-if query_current_market_result == 0 :
-    current_market = None
-print('current market = ', current_market)
 
-MARKETS = get_bittrex_Content(URL)
+# current_market = get_current_market()
+# logger.debug('current market = ' + str(current_market) )
 
-t2  = time.time()
-file_append_with_text(API_bittrex_data_log,  str(date)+  '       getExternalContent( URL  ) took    ' + str(round((t2-t1)*1000,2)) + ' ms' )
+
+
+# file_append_with_text(API_bittrex_data_log,  str(cur_datetime)+  '       getExternalContent( URL  ) took    ' + str(round((t2-t1)*1000,2)) + ' ms' +' ,     LOAD : ' + str(os.getloadavg() ) )
 
 ###   Read valid Markets from file :
-valid_MARKETS = set( read_file_line_by_line(valid_markets_file) )
-
-t3  = time.time()
-file_append_with_text(API_bittrex_data_log, str(date)+  '       valid_MARKETS took    ' + str(round((t3-t2)*1000,2)) + ' ms' )
-
-if debug_level >= 1 :     print(len( valid_MARKETS) ,valid_MARKETS,'\n')
+# valid_MARKETS = set( read_file_line_by_line(valid_markets_file) )
 
 
-Strongest_Markets = dict()
-cnt = 1
+
+
+
+
 
 
 #### First we delete the _volumes table in order to update it after :
@@ -54,413 +58,465 @@ delete_old_volumes_data = 'DELETE FROM _volumes WHERE market = %s;'
 delete_old_variations_data = 'DELETE FROM _variations WHERE market = %s;'
 
 
-#######    Preparation QUERIES        #############
-## prep Query for getting last minute items and compare them with the current ones  ###
-prepQuery  = 'SELECT last_price, volume, buy_vs_sell, id FROM `market_name` ORDER BY ID DESC LIMIT 1;'
-
-####  pre Query TO GET  the values with 60 minutes (1 hour) behind #####
-prep_VolumeQuery_1h  = 'SELECT volume, last_price, buy_vs_sell, id FROM `market_name` WHERE ID = %s;'
-
-####    pre Query TO GET  if the market is already in _VOLUMES TABLE or not     #####
-prep_Query_Volumes_market  = 'SELECT market, status, time_in, volume FROM `_volumes` WHERE market = %s;'
-
-####  pre Query TO GET  _history table values with 1 day offset behind #####
-prep_HistoryQuery  = 'SELECT market, time, vol_ch_1h, id  FROM `_history` WHERE time >= DATE_SUB(NOW(), INTERVAL 1 DAY) AND market = %s;'
-
-
-
-
-def _update_variations_table( market, debug_level ):
-    BVS, PR_CH = [], []
-    last_update = time.strftime("%Y-%m-%d %H:%M:%S",   time.localtime() )
-
-    METRICS = { 'id':0, 'date' : 1,  'last_price':2, 'last_price_ch' :3, 'buy_vs_sell' :4, 'buy_vs_sell_ch' :5,
-                'volume':6, 'vol_ch':7, 'buy_orders':8, 'sell_orders':9, 'vol_buy':10, 'vol_sell':11   }
-    BvS_fields = ( 'BvS_1m', 'BvS_2m', 'BvS_5m', 'BvS_10m', 'BvS_15m', 'BvS_30m', 'BvS_1h', 'BvS_2h', 'BvS_4h', 'BvS_8h' )
-    PR_CH_fields = ( 'pr_1m', 'pr_2m', 'pr_5m', 'pr_10m', 'pr_15m', 'pr_30m', 'pr_1h', 'pr_2h', 'pr_4h', 'pr_8h' )
-
-    prep_variations_query = 'SELECT market, time_in FROM `_variations` WHERE market = %s;'
-    prep_variations_res = cur.execute( prep_variations_query, (market) )
-
-    ### Logs
-    if debug_level >= 1 :
-        file_append_with_text(API_bittrex_data_log,  str(last_update)+'   _update_variations_table = ' + str(market) +'   last_update =  ' + str(last_update) )
-    if debug_level >= 2 :
-        file_append_with_text(API_bittrex_data_log,  str(last_update)+  '   prep_variations_query =  ' + str(prep_variations_query)   )
-        file_append_with_text(API_bittrex_data_log,  str(last_update)+  '   prep_variations_res =  ' + str(prep_variations_res)   )
-
-    query_insert = 'INSERT INTO `_variations` (market, time_in) VALUES (%s, %s); '
-    query_update = "UPDATE  `_variations` SET time_update='" +str(last_update)+"'"
-
-
-
-    if prep_variations_res == 0 :
-        # print('_variations_query_insert : ', query_insert)
-        variations_insert_result  = cur.execute( query_insert, (market, last_update ) )
-        connection.commit()
-
-        # print('query_update : ', query_update )
-        variations_update_result_1 =  cur.execute(query_update  )
-
-         ### Logs
-        if debug_level >= 2 :
-            file_append_with_text(API_bittrex_data_log,  str(last_update)+  '   _variations_insert_result  =  ' + str(variations_insert_result)   )
-            file_append_with_text(API_bittrex_data_log,  str(last_update)+  '   +variations_update_result_1 =  ' + str(variations_update_result_1)   )
-
-
-
-    if prep_variations_res > 0 :
-        row = cur.fetchone()
-        time_in = row[1]
-        delta = compute_dime_diff( str(time_in), last_update )
-
-        index = binary_search(delta, Times )
-        # print('delta : ' ,delta ,'            index = ', index )
-
-        ### Logs
-        if debug_level >= 3 :
-            file_append_with_text(API_bittrex_data_log,  str(last_update)+  '   delta  =  ' + str(delta)  +',    index  =  ' + str(index)   )
-
-
-        # query_insert += str(BvS_fields[:index+1]).lstrip('(').rstrip(')')
-    # query_insert += str(PR_CH_fields[:index+1]).lstrip('(').rstrip(')')
-    # query_insert += ', time_update ) VALUES '
-
-        last_time = Times[index]
-        print('last_time :' ,  last_time )
-        dataset = get_complete_bittrex_dataset(market, last_time+1, 0  )
-        # print(dataset)
-        vol_buy = [ float( i[METRICS['vol_buy'] ] )  for i in dataset  if i[ METRICS['vol_buy'] ] != None ]
-        print(' length :  ',len(vol_buy))
-        vol_sell = [ float (i[METRICS['vol_sell'] ] )   for i in dataset if i[ METRICS['vol_sell'] ] != None  ]
-        last_price = [ float (i[METRICS['last_price'] ] )   for i in dataset if i[ METRICS['last_price'] ] != None  ]
-
-        # print('vol_buy : ', vol_buy )
-        # print('vol_sell : ', vol_sell )
-        index = min(9, index)           # 2018-05-22, LIMIT for a max of 8 hours, even if we have longer times for CURRENT MARKET
-        for ind in range( index+1 ) :
-            vol_buy_period = sum(vol_buy[ : Times[ind]])
-            vol_sell_period = sum(vol_sell[ : Times[ind]])
-            buy_vs_sell_diff_period = round(vol_buy_period - vol_sell_period, 4 )
-            # print('ind =', ind,'      ', Times[ind] ,'    vol_buy_period = ',   vol_buy_period ,'    ' , vol_buy[ : Times[ind] ]   )
-            print('ind =', ind,'      ', Times[ind] ,'    vol_sell_period = ',   vol_sell_period  ,'      length : ' ,len(vol_sell[ : Times[ind]] ) , '\n' , vol_sell[ : Times[ind]]   )
-            print('ind =', ind , '         last_price :        index0 = ',  last_price[Times[0]] , '        last_index = ',Times[ind] ,'     ' ,last_price[Times[ind]]  )
-            last_price_ch = round((last_price[0] - last_price[Times[ind]])/last_price[Times[ind]]*100 , 2 )
-
-            print('buy_vs_sell_diff_period =', buy_vs_sell_diff_period ,  '        last_price_ch  =  ',  last_price_ch   )
-
-            query_update += ', '+str(BvS_fields[ind])+'=' +str(buy_vs_sell_diff_period)
-            query_update += ', '+str(PR_CH_fields[ind])+'=' +str(last_price_ch)
-
-            BVS.append(buy_vs_sell_diff_period)
-            PR_CH.append(last_price_ch)
-        print('BVS : ', tuple(BVS) )
-        print('PR_CH : ', PR_CH, '\n' )
-
-        query_update += " WHERE market = '" + str(market)+"';"
-
-
-        print('_variations query_update  : ', query_update  )
-
-        final_update_res_2 = cur.execute(query_update  )
-        ### Logs
-        if debug_level >= 2 :
-            file_append_with_text(API_bittrex_data_log,  str(last_update)+  '   _variations query_update =  ' + str(query_update)   )
-            file_append_with_text(API_bittrex_data_log,  str(last_update)+  '   final_update_res_2 =  ' + str(final_update_res_2)   )
-
-
-    # connection.commit()
+# #######    Preparation QUERIES        #############
+# ## prep Query for getting last minute items and compare them with the current ones  ###
+# prepQuery  = 'SELECT last_price, volume, buy_vs_sell, id FROM `market_name` ORDER BY ID DESC LIMIT 1;'
+#
+# ####  pre Query TO GET  the values with 60 minutes (1 hour) behind #####
+# prep_VolumeQuery_1h  = 'SELECT last_price, volume, buy_vs_sell, id FROM `market_name` WHERE ID = %s;'
+#
+# ####    pre Query TO GET  if the market is already in _VOLUMES TABLE or not     #####
+# prep_Query_Volumes_market  = 'SELECT market, status, time_in, volume FROM `_volumes` WHERE market = %s;'
+#
+# ####  pre Query TO GET  _HISTORY table values with 1 day offset behind #####
+# prep_HistoryQuery  = 'SELECT market, time, vol_ch_1h, id  FROM `_history` WHERE time >= DATE_SUB(NOW(), INTERVAL 1 DAY) AND market = %s;'
 
 
 
 
+# DA = DataAquisition( URL  )
+# print('all Markets : ', len(DA.raw_markets), DA.raw_markets )
+# DA.get_API_Content()
 
 
-###         MAIN        ####
+class CustomizedMarkets(object) :
+    def __init__(self, markets_file ):
+        # super(CustomizedMarkets, self).__init__()
+        self.markets_file = markets_file
+        self.defined_Markets = set(self.read_file_line_by_line(self.markets_file))
 
-for ITEM in MARKETS :
-    market = ITEM["MarketName"]
+
+    def read_file_line_by_line( self , filename) :
+        ###   Read valid Markets from file :
+        ''':Description : Read a filename line by line and the put the elements found
+        in the form of strings into a LIST '''
+        L = []
+        with open( filename, 'r') as f :
+            for line in f :
+                l = line.rstrip('\n')
+                # print(l, type(l) )
+                L.append(l)
+        f.close()
+        return L
 
 
-    if market in valid_MARKETS :
-        print('\nmarket = ', market )
+# BVM = CustomizedMarkets( markets_file)
+# print('BVM Valid Markets : ', len(BVM.defined_Markets), BVM.defined_Markets )
+# DA = DataAquisition(URL)
+# print('DA All Markets : ', len(DA.raw_markets), DA.raw_markets )
 
+class DataPreparation(DataAquisition, CustomizedMarkets):
+    ''':Description: Class which inherits the properties of other classes and aggregates data.
+    Roles : 1.   take the data from Bittrex API and put in a dataset.
+               2.   see which markets are defined and suitable;
+                :Methods of the class:
+                3.  detect when new markets are added;
+                4.  select what items will be taken from the dataset
+                5.  deliver a new dataset which contains only usable data.
+    '''
+
+    def __init__( self, URL, markets_file ) :
+        # super(DataInsertion, self).__init__(URL )
+        # super( DataInsertion, self ).__init__()
+        DataAquisition.__init__(self, URL)
+        CustomizedMarkets.__init__(self, markets_file)
+        logger.info('self.defined_Markets : ' + str(len(self.defined_Markets)) + '  ' + str(self.defined_Markets))
+        self.markets_dataset = self.collect_API_items()
+        # logger.debug('markets_dataset : ' + str(self.markets_dataset))
+        self.new_Markets = self.detect_new_markets()
+        self.db_markets_dataset = {  k:v for k,v in self.markets_dataset.items() if k not in self.new_Markets }
+        logger.info(Colors.fg.green + str(len(self.db_markets_dataset)) + str(self.db_markets_dataset) + Colors.reset )
+
+
+    def detect_new_markets( self ):
+        ''' :Description: check the existing tables in the bittrex DB and compares with the ones
+            defined in the defined_Markets. If new ones are added,
+            then the method creates the corresponding table to bittrex DB'''
+        existing_tables_result = cur.execute( QUERIES['query_existing_tables'])     #, ('bittrex', 'BTC-ADAs') )
+
+        if  len(self.defined_Markets) != existing_tables_result :
+            logger.info('existing_tables_result = ' + str( existing_tables_result) + '    length defined_Markets=   ' + str(len(self.defined_Markets)))
+            markets_in_db = { i[0].upper() for i in cur.fetchall() }
+            logger.info('markets_in_db : ' + str(len(markets_in_db)) + str(markets_in_db)  )
+            New_markets =  self.defined_Markets.difference(markets_in_db)
+            if len(New_markets) > 0 :
+                logger.warning('New_markets : ' + Colors.bg.yellow + str( New_markets ) + Colors.reset )
+                New_markets_data = {  k:v for k,v in self.markets_dataset.items() if k in New_markets}
+                logger.warning(Colors.bg.yellow + str(New_markets_data) + Colors.reset)
+                return New_markets_data
+
+        return []
+
+
+    def select_API_bittrex_items(self, ITEM):
+        market = ITEM["MarketName"]
         lastPrice = format(  ITEM["Last"] ,'.8f')
-        # print('\nlastPrice : ', lastPrice, type(lastPrice))
         volume = round( ITEM["BaseVolume"] , 4 )
         bid = format( ITEM["Bid"] , '.8f')
         ask = format(  ITEM["Ask"] , '.8f' )
-
         openBuyOrders = int(ITEM["OpenBuyOrders"])
         openSellOrders = int(ITEM["OpenSellOrders"])
+        buyVsSell = round( openBuyOrders/openSellOrders, 4 )
 
-        if ( openBuyOrders > 0 and openSellOrders > 0) :
-            buyVsSell = round( openBuyOrders/openSellOrders, 4 )
-        else :
-            openSellOrders = 0
-
-        ### Logs
-        if debug_level >= 3 :
-            # print('\n',str(cnt) +'.     ',  market, '      lastPrice =' ,  lastPrice , type(lastPrice)   , '     bid = ' , bid, type(bid),  '      ask =' , ask, type(ask) ,  '       volume =  ' , volume , type(volume) ,'     openBuyOrders = ' , openBuyOrders, type(openBuyOrders) ,  '     ' , openSellOrders , '     ' , buyVsSell )
-            file_append_with_text(API_bittrex_data_log, '\n'+ str(date)+  '   market =  ' + str(market) + ' ,    lastPrice = ' + str(lastPrice) + ' ,   bid = ' + str(bid) + ' ,   ask = ' + str(ask)  )
-            file_append_with_text(API_bittrex_data_log,  str(date)+  '   market =  ' + str(market) + ' ,    volume = ' + str(volume) + ' ,   openBuyOrders = ' + str(openBuyOrders) + ' ,   openSellOrders = ' + str(openSellOrders)+ ' ,   buyVsSell = ' + str(buyVsSell)  )
-
-        cnt +=1
+        return market, lastPrice, volume, bid, ask, openBuyOrders, openSellOrders, buyVsSell
 
 
-        ###### Select data from table using SQL query.  ####
+    def collect_API_items(self):
+        DATASET = OrderedDict()
+        defined_Markets_dataset = [market for market in self.raw_markets if market['MarketName'] in self.defined_Markets]
+        logger.info('(collect_API_items ) defined_Markets_dataset : ' + str(len(defined_Markets_dataset)) + str(defined_Markets_dataset))
+        for  cnt, ITEM in enumerate(defined_Markets_dataset) :
+            cur_datetime = time.strftime("%Y-%m-%d %H:%M:%S",   time.localtime() )
+            market, lastPrice, volume, bid, ask, openBuyOrders, openSellOrders, buyVsSell = self.select_API_bittrex_items(ITEM)
+            DATASET[str(market)] = { 'last_price': lastPrice , 'volume': volume ,'bid': bid , 'ask': ask , 'buy_ord': openBuyOrders ,'sell_ord': openSellOrders , 'BvS': buyVsSell  }
+            # print(str(cnt+1)+'.     market=', market ,'    lastPrice=', lastPrice , '    volume=', volume ,'    bid=', bid , '    ask=', ask , '    openBuyOrders=', openBuyOrders ,'    openSellOrders=', openSellOrders , '    buyVsSell=', buyVsSell  )
+        # print('DATASET : ',DATASET  )
+        return DATASET
+
+
+class Computations():
+    ''':Description: Class to make only needed computations for price_ch, volume_ch, buy_vs_sell_ch
+    '''
+    def __init__(self, Last_Values, Previous_Values):
+        self.Last_Values = Last_Values
+        self.Previous_Values = Previous_Values
+        self.Names = ['Price_ch', 'Vol_ch', 'BvS_ch' ]
+        self.Price_Vol_BvS_ch = self.get_values_changes()
+
+
+    def get_values_changes(self) :
+        ''':Description: constructs an array of changes up to the given period of time which is maximum
+
+        :param Last_Values: lst,  Last_Values is an array containing the data taken from the API  in the form [last_Price, volume, buyVsSell ]
+        :param Previous_Values: 2d array ; in the form [ [last_Price, volume, buyVsSell ]_5m, [last_Price, volume, buyVsSell ]_15m, ...  ]
+        :return: 2D array, in the form [[ pr_ch_5m, vol_ch_5m, , BvS_ch_5m ], [ pr_ch_15m, vol_ch_15m, , BvS_ch_15m], ... ]
+        '''
+
+        Price_Vol_BvS_ch =[]
+        for i in range(len(self.Previous_Values)) :
+            logger.debug( str(Periods[i]) +'  :  Last_Values : ' +str( self.Last_Values[i]) + '    Previous_values : ' +str( self.Previous_Values[i]) )
+            perc = [ percent( p, self.Last_Values[i], 2) for p in self.Previous_Values[i] ]
+            logger.debug(str(self.Names[i])+ ' percentages : ' + str(perc) )
+            Price_Vol_BvS_ch.append(perc)
+
+        return Price_Vol_BvS_ch
+
+
+
+class DatabaseCollection(DataPreparation) :
+    ''':Description: Class to Collect OLD Items from a SINGLE TABLE. It needs current values obtained
+        from DataPreparation Class in order to replace missing values from Db when getting the
+            old values array of [ old_prices 5m, 15m, 30m ...,  ] ,[ old_volumes 5m, 15m, 30m ...,  ],[ old_buy_vs_sell 5m, 15m, 30m ...,  ]
+    '''
+    def __init__(self, table_name ):
+        self.QB = QueryBuilder()
+        self.table_name = table_name
+
+        # super().__init__(URL, markets_file)
+
+        ###  Method Calls
+        self.last_id=  self.get_last_index()
+        logger.debug('self.last_id  : ' + str(self.last_id) )
+
+        self.max_index_diff = self.compute_max_index_behind()
+        logger.debug('self.max_index_diff  : ' + str(self.max_index_diff) )
+
+        self.Old_Values = self.get_old_values()
+        logger.debug('self.Old_Values  : ' +str( self.Old_Values) )
+
+
+    def get_last_index(self):
+        '''                :return: last_id from a table                    '''
+        last_index_query = self.QB.select_query(self.table_name, 'ORDER BY ID DESC LIMIT 1', *['id']  )
         try :
-            prepResult = cur.execute(prepQuery.replace('market_name' , market))
-            # print(prepResult)
-
+            result = cur.execute(last_index_query)
+            # print('result : ', result)
+            last_id = cur.fetchone()[0]
+            # print('last_id : ', last_id )
+            return last_id    # diff index return
+
+        except :
+            logger.warning('Sorry no such entry in the table. This means that there is no record in the table :  ' + str(self.table_name) )
+
+
+    def compute_max_index_behind(self ):
+        ''':Description: Computes the maximum index behind the last record by taking the first index in the table.
+         We need this information to know how much time we can go back to extract values.        '''
+        # 'select id from `market_name` ORDER BY ID LIMIT 1;'
+        if self.get_last_index() != None :
+            first_id_query = self.QB.select_query(self.table_name, 'ORDER BY ID LIMIT 1', *['id'] )
+            # logger.debug('query : ' +str(first_id_query) )
+            first_id_result = cur.execute(first_id_query)
+            first_id = cur.fetchone()[0]
+            logger.debug('first_id : ' + str(first_id))
+
+
+            # logger.debug('first_id : ' +str( first_id) + '     self.last_id = ' +str( self.last_id )+ '     indeces behind = ', +str(self.last_id - first_id +1) )
+            return self.last_id - first_id +1     # diff index return
+
+
+
+    def get_old_values(self ):
+        ''':Description: Method to get the old values FROM DATABASE.
+        :param cur_values: lst, array with [last_price, last_vol, last_buy_vs_sell ]
+        :return: lst of list, three arrays of int with values in the form [ [ old_prices ... ], [old_volumes] ,[old_buy_vs_sells] ]         '''
+        Prices, Vols, BvSs =[], [], []
+        i=0
+        for i in range(len(Times)) :
+            if Times[i] <= self.max_index_diff :
+                index = self.last_id - Times[i]+1
+                logger.debug(str(i) +'    Time_index : ' + str(Times[i]) +  '     Period : '+ str(Periods[i]) + '   index = ' +str( index) )
+                # 'SELECT id, last_price, volume, buy_vs_sell from `market_name` WHERE ID = %s;'
+                Select_result = 0
+                while Select_result != 1 :
+                    try :
+                        Sel_query = self.QB.select_query(self.table_name, 'WHERE ID='+str(index)  ,*['last_price', 'volume', 'BvS' , 'id' ] )
+                        logger.debug('Sel_query : ' + str(Sel_query) )
+                        Select_result = cur.execute(Sel_query)
+                        logger.debug('Select_result : ' + str(type(Select_result)) +str( Select_result)  )
+                        Vals = cur.fetchone()
+                        logger.debug(str(Periods[i]) +' : old values : ' + str(Vals) )
+                        Prices.append(Vals[0])
+                        Vols.append(Vals[1])
+                        BvSs.append(Vals[2])
+
+                    except :
+                        # print('\n' + Colors.fg.purple+' SORRY ! No id with this value = ' +str(index) + Colors.reset )
+                        index +=1
+                        logger.debug('Select_result = ' + str(Select_result) + '     We try index =' + Colors.fg.purple+ str(index) + Colors.reset)
+
+
+        logger.debug('Prices : ' + str( Prices) )
+        logger.debug('Vols : '+ str(Vols ) )
+        logger.debug('BvSs : '+ str(BvSs ) )
+
+        return Prices, Vols, BvSs
+
+    def get_custom_values_behind(self, period_behind ):
+        ''':Description: finds the old values corresponding to period behind. E.g. find the values of 5m, 15m, 30m, 1h, 4h, 8h, 1d, ...
+        :param period_behind: string, of the form 5m, 15m, 30m, 1h, 4h, 8h, 1d, ...
+        :return: tuple (Price, Vol, BvS),  of its corresponding index if it is found                               '''
+        try :
+            index_behind = Periods.index(period_behind)
+            # print('index_behind = ', index_behind)
+            return self.Old_Values[0][index_behind], self.Old_Values[1][index_behind], self.Old_Values[2][index_behind]
+        except ValueError :
+            logger.warning(Colors.bg.yellow + 'The period ' + period_behind +' is not among ' + str(Periods) +' !!!. Try to use one of these !' +Colors.reset  )
+            return -10, -10, -10        # return to avoid errors
+
+
+
+
+class DatabaseOperations( ):
+    ''':Description: Class to do INSERT, UPDATE Operations on a SINGLE TABLE   '''
+    def __init__(self, market, kwargs ):
+        self.QB = QueryBuilder()
+        # print('self.DC = ', len(self.DC.MARKETS), self.DC.MARKETS )
+        self.table_name = market
+        self.kwargs = kwargs
+        logger.debug('DatabaseOperations table_name  & **kwargs : ' +str( self.table_name) + '  ' +str(self.kwargs ) )
+
+
+    def create_market_table( self ):
+        createTableResult = cur.execute( TABLES['create_market_name'].replace('table_name', self.table_name ) )
+        logger.warning(Colors.fg.cyan + 'createTableResult : '+ str(createTableResult) )
+        logger.warning(Colors.fg.cyan+ 'table ' +Colors.bg.red + str(self.table_name) + Colors.fg.cyan + ' has been created' + Colors.reset  )
+        QueryBuilder.insert_query(self.table_name )
+
+
+    def insert( self, commit ):
+        query_insert = self.QB.insert_query(self.table_name, **self.kwargs  )
+        try :
+            insert_res = cur.execute(query_insert)
+            logger.debug(Colors.bg.green + 'insert_result : ' + str( insert_res ) + Colors.reset )
+            if commit == True : connection.commit()
+
+        except :
+            logger.error(Colors.bg.red + 'Sorry ! Insertion is not possible for ' + str(self.table_name) +'   with **kwargs : ' +str( self.kwargs) +Colors.reset )
+            connection.rollback()
+
+    def update_row_in_evolution(self):
+        try :
+            update_query = self.QB.update_query('_evolution' , 'market' , self.table_name, **self.kwargs )
+            logger.debug('update_evolution_query : ', update_query )
+            update_res = cur.execute(update_query)
+            # print('update__evolution_res  : ' + str(update_res))
+
+            if update_res ==0 :
+                insert_query = self.QB.insert_query('_evolution', **{'market': self.table_name, 'time' : cur_datetime } )
+                logger.debug('insert evolution query : ' +  str(insert_query))
+                ins_res = cur.execute(insert_query)
+                # print('insert evolution result : ' +  str(ins_res))
+
+        except  :
+            logger.error('There was an error at update__evolution_res !')
+
+
+    def update_row_in_volumes(self):
+        try :
+            update_volumes_query = self.QB.update_query('_volumes' , 'market' , self.table_name, **self.kwargs )
+            logger.debug('update_volumes_query : ', update_volumes_query )
+            update_vol_res = cur.execute(update_volumes_query)
+            # print('update_volumes_res  : ' + str(update_vol_res))
+            if update_vol_res ==0 :
+                insert_vol_query = self.QB.insert_query('_volumes', **{'market': self.table_name, 'time' : cur_datetime } )
+                logger.debug('insert _volumes query : ' +  str(insert_vol_query))
+                ins_vol_res = cur.execute(insert_vol_query)
+                # print('insert _volumes result : ' +  str(ins_vol_res))
+
+        except  :
+            logger.error('There was an error at update_volumes_res !')
+
+
+
+
+
+class BittrexDatabaseOps( ):
+    ''':Description: Class used only for bittrex database specific operations.
+        It aggregates and prepares all the parameters in a single dictionary of **kwargs    '''
+    def __init__(self, table_name, cur_vals, other_vals ):
+        self.table_name = self.market_name = table_name
+        self.cur_vals = cur_vals
+        self.percentages = self.other_vals =  other_vals
+        # self.kwargs_btc_ada = self.assemble_main_markets_args()
+        # self.kwargs_evolution = self.assemble_evolution_markets_args()
+
+
+    def assemble_main_markets_args(self):
+        names = ['price_ch', 'vol_ch', 'BvS_ch' ]
+        changes =  { names[i] : self.percentages[i][0] for i in range(len(self.percentages ))  }
+        # print('cur_vals : ', self.cur_vals  )
+        # print('changes  : ', changes )
+
+        _kwargs = { **self.cur_vals, **changes, **{'date' : cur_datetime}  }
+        # print('kwargs : ', _kwargs )
+        return _kwargs
+        # DO = DatabaseOperations(self.table_name, **_kwargs)
+        # print('DO :', DO)
+        # DO.insert( True )
+
+    def assemble_evolution_markets_args(self):
+        # print('assemble_evolution_markets_args  :   cur _vals = ' + str( self.cur_vals)  )
 
-            if (prepResult > 0) :
-                row = cur.fetchone()
-                prevPrice =  float(row[0])
-                prevVol = float(row[1])
-                prevBuyVsSell =  float( row[2] )
-                last_id = int(row[3])
-
-                ### Logs
-                if debug_level >= 3 :
-                    file_append_with_text(API_bittrex_data_log,  str(date)+ '   market =  '+ str(market) + ' ,    last_id = ' + str(last_id) + ' ,   prevPrice = ' + str(prevPrice) + '  ,  prevVol = ' + str(prevVol) + '    prevBuyVsSell = ' + str(prevBuyVsSell) )
-
-
-                priceCh = round( (( float(lastPrice) - prevPrice ) / prevPrice) * 100 , 2)
-                volCh = round( (( float(volume) - prevVol) / prevVol) * 100 , 2)
-                buyVsSellCh = round( (( buyVsSell - prevBuyVsSell) / prevBuyVsSell) * 100 , 2 )
-
-                #### Insert into the table the row with priceCh volCh, buyVsSellCh calculated :
-                second_insert_Result = cur.execute( QUERIES['second_insert_query'].replace('table_name', market),
-                                                 (date, lastPrice, priceCh, buyVsSell, buyVsSellCh, volume, volCh, bid, ask, openBuyOrders, openSellOrders) )
-
-                 #########################################
-                 #####                                                              #####
-                 #####        _VOLUME, _HISTORY  TABLES        #####
-                 #####                                                              #####
-                 #########################################
-
-                #    We select only the BTC markets  with SECURE VOLUME :
-                if ( market.startswith('BTC-') and market not in EXCLUDE_MARKETS ) :
-                    if volume < 5 :
-                        delete_volumes_markets1 = cur.execute(delete_old_volumes_data, (market) )
-                        delete_variations_markets1 = cur.execute(delete_old_variations_data, (market) )
-
-                        if debug_level >= 2 :
-                            print('delete_volume_markets1  : ', delete_volumes_markets1  )
-                            print('delete_variations_markets1  : ', delete_variations_markets1  )
-
-                    if volume >= 5  :
-                        connection.commit()     #  !!  VERY IMPORTANT ! WE MUST UPDATE THE ROW so that we can fill REAL BUY & SELL VOL
-
-                        #### Put the BTC markets in a dictionary and then in the    :
-                        if volCh > 1  :   # buyVsSellCh > 2 and priceCh > 0 and
-                            Strongest_Markets[market] = ( volCh, priceCh, buyVsSellCh, volume, buyVsSell )
-
-
-                        ####        We check values 60 minutes ago to put them in the _VOLUMES TABLE table in DB:       ########
-                        try :
-                            if debug_level >= 2 : print('prepQuery_1h = ', prep_VolumeQuery_1h)
-                            prepResult_1h = cur.execute(prep_VolumeQuery_1h.replace('market_name', market), (last_id - 59))
-                            if debug_level >= 2 : print('prepResult_1h  : ', prepResult_1h  )
-                            row_1h = cur.fetchone()
-                            if debug_level >= 2 : print('row_1h :  ', row_1h )
-
-                            if prepResult_1h > 0  :
-                                prevVol_1h = float(row_1h[0])
-                                prevPrice_1h =  float(row_1h[1])
-                                prevBuyVsSell_1h =  float( row_1h[2] )
-                                last_id_1h = int(row_1h[3])
-
-                                volCh_1h = round( (( float(volume) - prevVol_1h) / prevVol_1h) * 100 , 2)
-                                priceCh_1h = round( (( float(lastPrice) - prevPrice_1h ) / prevPrice_1h) * 100 , 2)
-                                buyVsSellCh_1h = round( (( buyVsSell - prevBuyVsSell_1h) / prevBuyVsSell_1h) * 100 , 2 )
-
-                                if debug_level >= 2 :
-                                    print( 'prevVol_1h = ', prevVol_1h ,'     prevPrice_1h = ' , prevPrice_1h ,  '    prevBuyVsSell_1h = ', prevBuyVsSell_1h,  '    last_id_1h = ', last_id_1h  )
-                                    print( 'last_id_1h = ', last_id_1h ,'     volCh_1h = ' , volCh_1h ,  '    priceCh_1h = ', priceCh_1h,  '    buyVsSellCh_1h = ', buyVsSellCh_1h  )
-
-                                if volCh_1h >= 5 or market == current_market :
-                                    ### Logs
-                                    if debug_level >= 1 :
-                                        file_append_with_text(API_bittrex_data_log, str(date)+  '   == market_name :   ' + str(market) +' ,   volCh_1h = ' + str(volCh_1h)  )
-
-                                    ## UPDATE  WATCH COIN in their market table    ####
-
-                                    ### Get the REAL VOLUME (buy & sell )
-                                    buy_vol, sell_vol = get_market_real_volume( market , 1 )
-
-                                    ### Update WATCH COIN markets the fields vol_buy & vol_sell in the markets monitored  by _volumes ####
-                                    prep_Update_Watch_markets = 'UPDATE `market_name` SET vol_buy=%s, vol_sell=%s WHERE id=%s;'
-                                    update_Watch_markets = cur.execute(prep_Update_Watch_markets.replace('market_name', market), (buy_vol, sell_vol, last_id+1) )
-
-                                    ### Logs
-                                    if debug_level >= 2 :
-                                        file_append_with_text(API_bittrex_data_log,  str(date)+  '   update_Watch_markets =  ' + str(update_Watch_markets) )
-
-                                    ####  END UPDATE  BTC-ADA types in their market table   ####
-
-                                    ####################################
-                                    ####                                                        ####
-                                    ####        Update _VOLUMES TABLE        ####
-                                    ####                                                        ####
-                                    ####################################
-                                    prep_Result_Volumes_market  = cur.execute( prep_Query_Volumes_market , (market) )
+        PR , VOL , BVS = self.other_vals[0], self.other_vals[1], self.other_vals[2]
+        pr_0, vol_0, BvS_0 = self.cur_vals['last_price'], self.cur_vals['volume'], self.cur_vals['BvS']
+        # print(' pr_0, vol_0, BvS_0 :  ', pr_0, vol_0, BvS_0)
 
-                                    ###  Logs
-                                    if debug_level >= 2 :
-                                        # file_append_with_text(API_bittrex_data_log,  str(date)+  '   prep_Query_Volumes_market =  ' + str(prep_Query_Volumes_market) )
-                                        file_append_with_text(API_bittrex_data_log,  str(date)+  '   prep_Result_Volumes_market =  ' + str(prep_Result_Volumes_market) )
+        # we insert the current values at the beginning of the list
+        PR.insert(0, pr_0) ; VOL.insert(0, vol_0 ) ; BVS.insert(0, BvS_0 )
+        # print('PR , VOL , BVS :  ' + str(PR) + str(  VOL) + str(BVS)   )
 
+        # take only as needed name keys as needed
+        Price_per = Price_periods[:len(PR)]
+        Vol_per = Vol_periods[:len(VOL)]
+        BvS_per = BvS_periods[:len(BVS)]
+        # print(' Price_periods , Vol_periods, BvS_periods : ', Price_per, Vol_per, BvS_per )
+
+        # make a dictionary of key:values. Like {'pr_0' : 0.02, 'pr_5m: 0.4, ... } ; {'vol_0' : 62.23, 'vol_5m: 64.45, ... }, ...
+        Prices = { Price_per[i] : PR[i] for i in range(len(PR))  }
+        Volumes = { Vol_per[i] : VOL[i] for i in range(len(VOL))  }
+        BvSs = { BvS_per[i] : BVS[i] for i in range(len(BVS))  }
+        __kwargs = { **Prices, **Volumes, **BvSs, **{'time' : cur_datetime} }
+        logger.debug('assemble_evolution_markets_args __kwargs : ' + str( __kwargs) )
+        return __kwargs
 
-                                    if prep_Result_Volumes_market == 0 :    # If we have NEGATIVE response we insert a new market :
-                                        insert_markets_Volumes = cur.execute( QUERIES['insert_volumes'] ,
-                                             (market, date, date, volCh_1h, volCh, priceCh_1h, priceCh, buyVsSellCh_1h, buyVsSellCh, volume, buy_vol, sell_vol, lastPrice, buyVsSell, 'new') )
-                                        ### Logs
-                                        if debug_level >= 2 :
-                                            # print('insert_markets_Volumes  : ', insert_markets_Volumes  )
-                                            file_append_with_text(API_bittrex_data_log,  str(date)+  '   insert_markets_Volumes =  ' + str(insert_markets_Volumes) )
 
-                                    elif prep_Result_Volumes_market != 0 :
-                                        update_markets_Volumes = cur.execute( QUERIES['update_volumes'] ,
-                                         (date, volCh_1h, volCh, priceCh_1h, priceCh, buyVsSellCh_1h, buyVsSellCh, volume, buy_vol, sell_vol, lastPrice, buyVsSell, 'watch', market) )
-                                        ### Logs
-                                        if debug_level >= 2 :
-                                            # print('update_markets_Volumes  : ', update_markets_Volumes  )
-                                            file_append_with_text(API_bittrex_data_log,  str(date)+  '   update_markets_Volumes =  ' + str(update_markets_Volumes) )
+    def assemble_volumes_markets_args(self):
+        logger.info('All_Percentages : ' + str(  self.percentages)  )
+        if len(self.percentages[0]) >= 4:  percentages_1h = { 'pr_ch_1h' : self.percentages[0][3], 'vol_ch_1h' : self.percentages[1][3], 'BvS_ch_1h' : self.percentages[2][3] }
+        else :  percentages_1h = { 'pr_ch_1h' : -10, 'vol_ch_1h' : -10, 'BvS_ch_1h' : -10 }
+        percentages_5m = { 'pr_ch_5m' : self.percentages[0][0], 'vol_ch_5m' : self.percentages[1][0], 'BvS_ch_5m' : self.percentages[2][0] }
+        current_vals = { 'last_price' : self.cur_vals['last_price'] ,'volume' : self.cur_vals['volume'] ,'BvS' : self.cur_vals['BvS'] }
+        _kwargs_volumes = { **percentages_1h, **percentages_5m, **current_vals , **{'time' : cur_datetime}}
+        logger.debug('_kwargs_volumes : ' +str( _kwargs_volumes)  )
+        return _kwargs_volumes
 
-                                    ######################################
-                                    ####                                                            ####
-                                    ####        Update _VARIATIONS TABLE        ####
-                                    ####                                                            ####
-                                    ######################################
 
-                                    UPDATE_VARIATIONS = _update_variations_table(market, 0 )
 
+t2  = time.time()
+if system() == 'Linux' :
+    logger.warning(' getExternalContent( URL  ) took    ' + str(round((t2-t1)*1000,2)) + ' ms' + ' ,     LOAD : ' + str(os.getloadavg() ) )
 
-                                    ####        DELETE _VOLUMES  old records :      ####
-                                if volCh_1h < 5 and market != current_market :
-                                    delete_volumes_markets2 = cur.execute(delete_old_volumes_data, (market) )
-                                    delete_variations_markets2 = cur.execute(delete_old_variations_data, (market) )
-                                    ### Logs
-                                    if debug_level >= 3 :
-                                        file_append_with_text(API_bittrex_data_log,  str(date)+ '    ' + str(market) + '   delete_volume_markets2 =  ' + str(delete_volumes_markets2) )
-                                        file_append_with_text(API_bittrex_data_log,  str(date)+ '    ' + str(market) + '   delete_variations_markets2 =  ' + str(delete_variations_markets2) )
+if __name__ == '__main__' :
+    ###     1.      Take the Data from Bittrex API, the chosen markets BTC-ADA
+    DP = DataPreparation(URL, bittrex_markets_file)
 
-                                    ### END Update _VOLUMES TABLE ####
+    # logger.debug('DP.MARKETS dataset : ' + str(DP.markets_dataset) )
 
+    cnt =0
+    for market, Vals in DP.db_markets_dataset.items() :
+        cnt+=1
+        logger.info('---'*20 )
+        logger.warning(Colors.bg.iceberg +'#'+str(cnt) +'    market : ' + str(market) + Colors.fg.blue + '     Vals : '+ str(Vals) + Colors.disable )
 
-                                    ###############################
-                                    ####                                               ####
-                                    ####         _HISTORY TABLE            ####
-                                    ####                                               ####
-                                    ###############################
+        ###     BTC-ADA     MARKETS / Individual    TABLES      ###
+        #     2.   Prepare the data for insertion in the main market -->
+        # the 5m values from API bittrex, Price_Vol_BvS changes & real_volume
 
-                                    prep_History_Result_24h = cur.execute(prep_HistoryQuery, (market) )
-                                    ### Logs
-                                    if debug_level >= 4 :
-                                        file_append_with_text(API_bittrex_data_log,  str(date)+  '   prep_History_Result_24h =  ' + str(prep_History_Result_24h) )
+        DC = DatabaseCollection(market)
+        Values_5m = DC.get_custom_values_behind('5m')
+        logger.debug('Values_5m  : ' + str(Values_5m) )
 
+        ###     Get Old Values for Price, Volume, buy_vs_sell @ 5m, 15m, 30m, 1h, 4h, 8h, 1d, ....
+        All_Old_Values = DC.Old_Values
+        logger.debug(Colors.fg.green + 'Pr_Vol_BvS_Old_Values  : ' + str(All_Old_Values) + Colors.disable )
 
-                                    if prep_History_Result_24h == 0 :
-                                        ### Logs
-                                        if debug_level >= 2 :
-                                            file_append_with_text(API_bittrex_data_log,  str(date)+  '   We do not have this market in the last 24h !   ' )
-                                            file_append_with_text(API_bittrex_data_log,  str(date)+  '   We will add this to the _history TABLE !!!  ' )
+        ###  Last Values taken from the BITTREX API
+        Current_Vals = [Vals['last_price'], Vals['volume'], Vals['BvS']]
+        logger.info(Colors.fg.cyan + 'Current_Vals  : ' + str(Current_Vals) + Colors.disable)
 
-                                        #### Here we insert in the _HISTORY TABLE the volumes with vol_ch_1h > 5    ######
-                                        insert_History = cur.execute( QUERIES['history_insert'],
-                                                      (date, market, volCh_1h, volCh, priceCh_1h, priceCh, buyVsSellCh_1h, buyVsSellCh, volume, lastPrice, buyVsSell, 'vol' ) )
-                                        ### Logs
-                                        if debug_level >= 2 :
-                                            file_append_with_text(API_bittrex_data_log,  str(date)+  '   insert_History =  ' + str(insert_History) )
+        ###     2a.     Compute the percent variations for Price, Volume & Buy_vs_Sell
+        All_Percentages = Computations(Current_Vals, All_Old_Values).Price_Vol_BvS_ch
+        # print('CALC All_Percentages : ', All_Percentages )
 
-                                    if prep_History_Result_24h != 0 :
-                                        row_24h = cur.fetchone()
-                                        ### Logs
-                                        if debug_level >= 4 :
-                                            file_append_with_text(API_bittrex_data_log,  str(date)+  '   There is already history within 24 hours for the market : =  ' + str(market) )
-                                            file_append_with_text(API_bittrex_data_log,  str(date)+  '   row_24h =  ' + str(row_24h) )
+        ###     REAL VOLUME     ###
+        real_volume = get_market_real_volume(market, 5 )
 
-                                    #########  END _HISTORY TABLE    ###########
+        ###     2b.     Gather All the **kwargs to INSERT into the BTC-ADA markets
+        kwargs_btc_ada = BittrexDatabaseOps(market, Vals, All_Percentages).assemble_main_markets_args()
+        kwargs_btc_ada.update(real_volume)      #   Update kwargs_btc_ada with real_volume dictionary
+        logger.info('main_market_args : ' +str( kwargs_btc_ada) )
 
+        ###     2c.     Markets 'BTC-ADA' INSERTS           ###
+        DO = DatabaseOperations(market, kwargs_btc_ada)
+        DO.insert( False )
 
-                        except IndexError :
-                            print(' There are no 60 records behind !!!!!! ')
-                            file_append_with_text(API_bittrex_data_log,  str(date)+  '   There are no 60 records behind !!!!!!  '  )
+        ###     _EVOLUTION TABLE        ###
 
+        kwargs_evolution = BittrexDatabaseOps(market, Vals, All_Old_Values ).assemble_evolution_markets_args()
+        DO = DatabaseOperations(market, kwargs_evolution)
+        DO.update_row_in_evolution()
 
+        ###     _VOLUMES TABLE          ###
 
-        except Exception :
-            if debug_level >= 2 :               print('No such table ! We will create the table')
-            #### ====== CREATE IF TABLE DOES NOT EXIST !!!!
-            ### Logs
-            if debug_level >= 2 : file_append_with_text(API_bittrex_data_log,  str(date)+ '   market ' + str(market) +'  was not found in TABLES_SET !!!!' )
+        kwargs_volumes = BittrexDatabaseOps(market, Vals, All_Percentages).assemble_volumes_markets_args()
+        kwargs_volumes.update(real_volume)
+        DO = DatabaseOperations(market, kwargs_volumes)
+        DO.update_row_in_volumes()
 
-            createTableQuery = TABLES['create_market_name']
-            ### Logs
-            if debug_level >= 2 : file_append_with_text(API_bittrex_data_log,  str(date)+ '   market ' + str(market) +'  createTableQuery : '+str(createTableQuery) )
-            createTableResult = cur.execute( TABLES['create_market_name'].replace('table_name', market ) )
-            ### Logs
-            if debug_level >= 2 : file_append_with_text(API_bittrex_data_log,  str(date)+ '   market ' + str(market) +'  createTableResult : '+str(createTableResult) )
 
 
+    ###############################
+    ###      3.      New Markets Case       ###
+    ###############################
+    if len(DP.new_Markets) > 0 :
+        for market, Vals in DP.new_Markets.items() :
+            cnt+=1
+            logger.info('---'*20 )
+            logger.info(Colors.bg.iceberg +'#'+str(cnt) +'    market : ' + str(market) + Colors.fg.blue + '     Vals : '+ str(Vals) + Colors.disable )
 
-            if debug_level >= 3 : print(QUERIES['initial_insert_query'].replace('table_name', market))
-            initial_insert_Result = cur.execute( QUERIES['initial_insert_query'].replace('table_name', market),
-                                                 (date, lastPrice, buyVsSell, volume, bid, ask, openBuyOrders, openSellOrders) )
-            connection.commit()
+            main_market_args = { **Vals, **{'date' : cur_datetime} }
+            logger.info('main_market_args : ' +str(main_market_args) )
+            DO = DatabaseOperations(market, main_market_args)
+            DO.create_market_table()
 
+            DO.insert(True)
 
 
-connection.commit()
-# connection.rollback()
-connection.close()
 
+    connection.commit()
+    connection.close()
 
-t4  = time.time()
-file_append_with_text(API_bittrex_data_log,  str(date)+  '       market INSERT in tables took    ' + str(round((t4-t3)*1000,2)) + ' ms' )
-file_append_with_text(API_bittrex_data_log,  str(date)+  '       current_market :   ' + str(current_market)  )
-
-###     STRONGEST   MARKETS     #####
-# We empy the file if we don't have valid markets
-# if len(Strongest_Markets) == 0 :
-#     open(strongest_markets_file, 'w').close()
-
-if len(Strongest_Markets) > 0 :
-    Strongest_Markets = sorted( Strongest_Markets.items(), key=operator.itemgetter(1) )
-
-    file_append_with_text(API_bittrex_data_log,  '_ _ '*15+'   Strongest Markets :'+'_ _ '*15 )
-    file_append_with_text(API_bittrex_data_log,  ' = vol_Ch, price_Ch, buy_Vs_Sell_Ch, volume, buy_Vs_Sell =' )
-    file_append_with_text(API_bittrex_data_log,    str(Strongest_Markets) )
-    # file_append_with_text(API_bittrex_data_log,    str(Strongest_Markets[-20:][::-1][4:8]) )
-    # file_append_with_text(API_bittrex_data_log,    str(Strongest_Markets[-20:][::-1][8:12]) )
-    # file_append_with_text(API_bittrex_data_log,    str(Strongest_Markets[-20:][::-1][12:16]) )
-    # file_append_with_text(API_bittrex_data_log,    str(Strongest_Markets[-20:][::-1][16:20]) )
-
-
-###     END     STRONGEST   MARKETS     #####
-
-
-    ##### WRITE  to the Strongest Markets FILE   ######
-    #######         Write to file Strongest Markets      ######
-
-    # SM = Strongest_Markets[::-1]           #       All the results
-
-    # if debug_level >= 1 : print('\nSM: ', len(SM), SM ,'\n' )
-
-
-
-    # outF = open(strongest_markets_file , 'w')
-    # outF.write( ' = vol_Ch, price_Ch, buy_Vs_Sell_Ch, volume, buy_Vs_Sell =\n' )
-    # for  cnt, candidate in enumerate(SM) :
-    #     market = candidate[0]
-    #     values = candidate[1]
-    #     outF.write( market +',' + str(values[0])+','+ str(values[1])+','+ str(values[2])+','+ str(values[3])+','+ str(values[4]) +'\n' )
-    #     if debug_level >= 1 :      print( str(cnt+1)+'.     ',  market,'    ',  values )
-    #
-    # outF.close()
-
-
-file_append_with_text(API_bittrex_data_log, '---'*30 )
-if debug_level >= 1 : print( '\nCurrent Date   --->   ', date ,'\n'  )
+t3  = time.time()
+if system() == 'Linux' :
+    logger.warning('    market INSERT in tables took    ' + str(round((t3-t2),2)) + ' s' + ' ,     LOAD : ' + str(os.getloadavg() )  )

@@ -1,6 +1,6 @@
 #  Created by Bogdan Trif on 21-01-2018 , 1:02 PM.
 
-from conf.db_conn import *
+from conf.sensitive import *
 from includes.API_functions import *
 
 
@@ -9,16 +9,30 @@ import numpy as np
 from math import floor, ceil
 from pathlib import Path
 from os import remove, path
+import logging.config
+import  json
+
 
 
 ############        VARIABLES      ##############
 
-Times = [1, 2, 5, 10, 15, 30, 60, 120, 240, 480, 720, 1440, 2880, 4320, 10080, 20160, 43200, 86400, 129600 ]
-Periods = ['1m', '2m', '5m', '10m', '15m', '30m','1h', '2h', '4h', '8h', '12h', '1d', '2d', '3d', '1w', '2w', '4w','8w', '12w']
+# Times = [1, 2, 5, 10, 15, 30, 60, 120, 240, 480, 720, 1440, 2880, 4320, 10080, 20160, 43200, 86400, 129600 ]  # @1 minute intervals
+# Periods = ['1m', '2m', '5m', '10m', '15m', '30m','1h', '2h', '4h', '8h', '12h', '1d', '2d', '3d', '1w', '2w', '4w', '8w', '12w']   # # @1 minute intervals
+Times = [ 1,         3,        6,     12,   48,   96,  288,  864,   2016,  8640, 17280, 25920 ]      # @ 5 minutes intervals
+Periods = ['5m', '15m', '30m', '1h', '4h', '8h', '1d',   '3d',   '1w',   '4w',   '8w',    '12w']          # @ 5 minutes intervals
+
+# Times = [ 1,         3,        6,     12,   48,   96,  288,  864,   2016,  8640, 17280] #, 25920 ]      # @ 5 minutes intervals
+# Periods = ['5m', '15m', '30m', '1h', '4h', '8h', '1d',   '3d',   '1w',   '4w',   '8w'] #,    '12w']          # @ 5 minutes intervals
+
+
+Price_periods = ['pr_0'] + [ 'pr_'+str(i) for i in Periods ]
+Vol_periods = ['vol_0'] + [ 'vol_'+str(i) for i in Periods ]
+BvS_periods = ['BvS_0'] + [ 'BvS_'+str(i) for i in Periods ]
+
+
 date_pattern = '%Y-%m-%d %H:%M:%S'
 
-###         Markets which present risk, controlled markets, pump & dump markets ...and so on ...
-EXCLUDE_MARKETS = { 'BTC-NBT' }
+
 
 
 #################       URL'S       #################
@@ -30,6 +44,8 @@ strongest_markets_file = 'tmp/Strongest_Markets.txt'
 active_trade_market_file = 'tmp/ACTIVE_Trade_Market.txt'
 temp_trade_market_file = 'tmp/TEMPORARY_Trade_Market.txt'
 valid_markets_file = 'tmp/valid_Markets.txt'
+bittrex_markets_file = 'conf/bittrex_MARKETS.txt'
+
 bittrex_DB_markets_tables_file = 'tmp/bittrex_DB_markets_tables.txt'
 
 
@@ -38,6 +54,8 @@ API_bittrex_data_log =  'log/API_bittrex_data.log'
 DB_backup_log = 'log/DB_backup.log'
 trade_agent_log_file = 'log/trade_agent.log'
 
+
+
 ##############      API         ################
 API = BITTREX(api_key, api_secret)
 
@@ -45,6 +63,22 @@ API = BITTREX(api_key, api_secret)
 
 
 ###############     FUNCTIONS   ###############
+
+
+#######     LOGGING     ######
+
+def init_logging(config_file, log_type ):
+    ''' Function which loads the configuration of config log file : *.json or *.yaml        '''
+    if path.exists(config_file):
+        with open(config_file, 'r') as f:
+            if log_type == 'yaml' :
+                config = yaml.safe_load(f.read())
+            if log_type == 'json' :
+                config = json.load( f )
+            else : print('Not correct log_type   ! ! ')
+
+            return config
+    else : print('Not a valid file or the file does not exist !')
 
 def get_bittrex_Content(URL) :
     ''' :Description:   Gets the Bittrex Content by connecting to the Bittrex API
@@ -112,10 +146,46 @@ def get_current_market_from_file(active_trade_market_file) :
     return None
 
 
+### Current Trading Market :
+def get_current_market():
+    current_market_query = 'SELECT market, time_in FROM `_trade_now`;'
+    query_current_market_result = cur.execute( current_market_query )
+    if query_current_market_result > 0 :
+        row_res = cur.fetchone()
+        current_market = row_res[0]
+    if query_current_market_result == 0 :
+        current_market = None
+
+    return current_market
+
+
+
+class DataAquisition(object):
+    def __init__(self, URL ) :
+        # super(DataAquisition, self).__init__()
+        self.URL = URL
+        self.raw_markets = self.get_API_Content()
+
+    def get_API_Content( self ) :
+        ''' :Description:   Gets the Bittrex Content by connecting to the Bittrex API
+            :Returns: an JSON (JavaScript Object Notation) object in the form of a DICTIONARY '''
+        req  = requests.get( self.URL )
+        html = req.json()
+        print( type(html), html )
+
+        RSLT = html['result']
+        print(len(RSLT) , RSLT)
+        return RSLT
+
+
+
 
 #########################################################
 ############          MATHEMATICAL FUNCTIONS         #############
 
+def percent(old, new, decimals):
+    '''Computes the percentage of  two custom values'''
+    return round( (( float(new) - float(old) ) / float(old) ) * 100 , decimals)
 
 def Savitzky_Golay(y, window_size, order, deriv=0, rate=1):
     """Smooth (and optionally differentiate) data with a Savitzky-Golay filter.
@@ -198,7 +268,7 @@ def get_complete_bittrex_dataset( market, period , offset ):
     :param offset: int, offset, how many MINUTES BEHIND will be the last time
     :return: complete dataset, list of tuples       '''
 
-    connection = pymysql.connect( host= HOST, port=3306, user=USER, passwd=PASSWD, db = DB1 )
+    connection = pymysql.connect( host= RIGEL, port=3306, user=USER, passwd=PASSWD, db = bittrex )
     cur = connection.cursor()
 
     # print('market name = ', market)
@@ -211,7 +281,7 @@ def get_complete_bittrex_dataset( market, period , offset ):
     count_rows = cur.fetchone()
     # print('count_rows |: ',  count_rows[0] )
     if count_rows[0] - offset >= period :     # If we can go back in time by this amount :
-        prep_MarketQuery  = 'SELECT  id, date, last_price, last_price_ch, buy_vs_sell, buy_vs_sell_ch, volume, vol_ch, buy_orders, sell_orders, ' \
+        prep_MarketQuery  = 'SELECT  id, date, last_price, price_ch, BvS, BvS_ch, volume, vol_ch, buy_ord, sell_ord, ' \
                                     'vol_buy, vol_sell FROM `market_name` ORDER BY ID DESC LIMIT %s OFFSET %s;'
         prep_MarketResult = cur.execute(prep_MarketQuery.replace('market_name', market), ( period, offset ) )
 
@@ -240,7 +310,7 @@ def get_dataset( source_exchange , market, metric, period ):
     elif source_exchange == 'marketcap' : db = DB2
     else : return 'No such exchange source. No such database'
 
-    connection = pymysql.connect( host= HOST, port=3306, user=USER, passwd=PASSWD, db = db )
+    connection = pymysql.connect( host= localhost, port=3306, user=USER, passwd=PASSWD, db = db )
     cur = connection.cursor()
 
     # print('market name = ', market)
@@ -445,6 +515,7 @@ def get_market_real_volume(market, mins) :
     BUY, SELL = 0, 0
     for cnt, res in enumerate(A) :
         bittrex_epoch = convert_time_bittrex_format_to_epoch( res['TimeStamp'] )
+        # print( str(cnt+1) , '.         time : ', res['TimeStamp']  ,'     ' ,res['OrderType'], '    total= ',res['Total'] ,'        ', res )
         if bittrex_epoch >= now_epoch_utc - mins*60 :
             # print( str(cnt+1) , '.         time : ', res['TimeStamp']  ,'     ' ,res['OrderType'], '    total= ',res['Total'] ,'        ', res )
             if res['OrderType'] == 'BUY' :        BUY += res['Total']
@@ -454,10 +525,63 @@ def get_market_real_volume(market, mins) :
     BUY, SELL = round(BUY, 4), round(SELL, 4)
     # print('Real Volume in the last ' + str(mins) + ' mins  is :     BUY = ', BUY ,'      SELL = ', SELL ,'    BTC' , '      TOTAL = ', BUY+SELL ,'    BTC' ,  )
 
-    return BUY, SELL
+    return {'vol_buy' : BUY, 'vol_sell' : SELL }
 
 
 
 #####################################################
+
+class Colors:
+    '''Colors class:
+    reset all colors with colors.reset
+    two subclasses fg for foreground and bg for background.
+    use as colors.subclass.colorname.
+    i.e. colors.fg.red or colors.bg.green
+    also, the generic bold, disable, underline, reverse, strikethrough,
+    and invisible work with the main class
+    i.e. colors.bold
+    '''
+    reset='\033[0m'
+    bold='\033[01m'
+    disable='\033[02m'
+    underline='\033[04m'
+    reverse='\033[07m'
+    strikethrough='\033[09m'
+    invisible='\033[08m'
+    class fg:
+        black='\033[30m'
+        red='\033[31m'
+        green='\033[32m'
+        orange='\033[33m'
+        blue='\033[34m'
+        purple='\033[35m'
+        cyan='\033[36m'
+        lightgrey='\033[37m'
+        darkgrey='\033[90m'
+        lightred='\033[91m'
+        lightgreen='\033[92m'
+        yellow='\033[93m'
+        lightblue='\033[94m'
+        pink='\033[95m'
+        lightcyan='\033[96m'
+    class bg:
+        black='\033[40m'
+        red='\033[41m'
+        green='\033[42m'
+        lightgreen  = '\33[102m'
+        orange='\033[43m'
+        blue='\033[44m'
+        purple='\033[45m'
+        cyan='\033[46m'
+        lightgrey='\033[47m'
+        yellow = '\33[103m'
+        iceberg  = '\33[106m'
+        white  = '\33[107m'
+
+
+
+#####################################################
+
+
 
 

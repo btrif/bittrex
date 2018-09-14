@@ -12,7 +12,8 @@ import time, datetime
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+
 
 class BITTREX(object):
     ''' :Description: Makes the interaction with the bittrex API
@@ -51,13 +52,14 @@ class BITTREX(object):
         else:
             headers = {}
 
-        print('\nurl : \t', url , '\n')
+
+        # print('\nurl : \t', url , '\n')
 
         req = requests.get(url, verify=False, headers = headers )
-        print('req : \t', req)
+        # print('req : \t', req)
 
         response = req.json()
-        print('response : \t', response)
+        # print('response : \t', response)
 
         if response["result"]:
             return response["result"]

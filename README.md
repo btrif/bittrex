@@ -6,6 +6,8 @@ It runs with several crons behind each starting the scripts.
 When I was taking the decision to use cron I also considered to use
 service (daemons) as processes but because of the memory limitations 
 I prefered the cron way.
+Sensitive data & trading strategy files are not present.
+
 
 I will briefly explain what it does and how it works.
 
@@ -16,7 +18,7 @@ The software flow is the following :
 
 The structure (architecture) is the following :
 Folders :
-- conf folder : contains all the sensitive data such as accounts as passwords (is empty here)
+- conf folder : contains all the sensitive data such as accounts as passwords, logging and other configuration settings( sensitive data are not revealed) 
 - includes folder : contains all functions and classes needed for the main run scripts ;
 - img folder : contains plots of markets generated with the plot_graphs.py
 - log folder : logs for each major operation
@@ -34,10 +36,9 @@ there are markets which are pending delete on the bitrex side, is notifying the
 tmp/avaiable.markets.tmp and data is not taken from those markets anymore.
 Also when the backup is made those markets ( tables in DB) will be deleted.
 
-- plot_graphs.py : plots graphs using different kind of metrics. The function here took
-me the largest amount of work because of the various parameters which needed to be considered.
+- plot_graphs.py : plots graphs using different kind of metrics.
 
-- get_market_cap_data.py : interogates the coinmarketcap.com and is similar with 
+- get_API_total_cmc.py : interogates the coinmarketcap.com and is similar with 
 get_API_bittrex_data.py
 
 - clean_and_backup_database.py : the cleanup tool and backup tool. It runs once per months
