@@ -43,14 +43,6 @@ logger.debug('markets file : ' + str(bittrex_markets_file) )
 
 # file_append_with_text(API_bittrex_data_log,  str(cur_datetime)+  '       getExternalContent( URL  ) took    ' + str(round((t2-t1)*1000,2)) + ' ms' +' ,     LOAD : ' + str(os.getloadavg() ) )
 
-###   Read valid Markets from file :
-# valid_MARKETS = set( read_file_line_by_line(valid_markets_file) )
-
-
-
-
-
-
 
 
 #### First we delete the _volumes table in order to update it after :
@@ -74,11 +66,6 @@ delete_old_variations_data = 'DELETE FROM _variations WHERE market = %s;'
 
 
 
-# DA = DataAquisition( URL  )
-# print('all Markets : ', len(DA.raw_markets), DA.raw_markets )
-# DA.get_API_Content()
-
-
 class CustomizedMarkets(object) :
     def __init__(self, markets_file ):
         # super(CustomizedMarkets, self).__init__()
@@ -100,10 +87,6 @@ class CustomizedMarkets(object) :
         return L
 
 
-# BVM = CustomizedMarkets( markets_file)
-# print('BVM Valid Markets : ', len(BVM.defined_Markets), BVM.defined_Markets )
-# DA = DataAquisition(URL)
-# print('DA All Markets : ', len(DA.raw_markets), DA.raw_markets )
 
 class DataPreparation(DataAquisition, CustomizedMarkets):
     ''':Description: Class which inherits the properties of other classes and aggregates data.
